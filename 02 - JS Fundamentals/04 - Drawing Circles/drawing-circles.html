@@ -1,0 +1,127 @@
+<html>
+<head>
+    <title>Demo</title>
+    <style>
+        #screen {
+            width: 95%;
+            height: 90%;
+            border: 2px solid black;
+            position: relative;
+        }
+
+        #screen div {
+            pointer-events: none;
+        }
+
+        .color-button {
+            border: 2px solid transparent;
+        }
+
+        .color-button.selected{
+            border: 2px solid black;
+        }
+
+        #green {
+            background-color: #A8D5BA;
+            width: 50px;
+            height: 20px;
+        }
+
+        #blue {
+            background-color: #A8C7E8;
+            width: 50px;
+            height: 20px;
+        }
+
+        #purple {
+            background-color: #C9B1E8;
+            width: 50px;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="color-button selected" id="green"></button>
+    <button class="color-button" id="blue"></button>
+    <button class="color-button" id="purple"></button>
+    
+    <button id="reset">Reset</button>
+
+    <div id="screen"></div>
+
+<script>
+    let color = "#A8D5BA";
+
+    let green = document.getElementById("green");
+    let blue = document.getElementById("blue");
+    let purple = document.getElementById("purple");
+    
+    let screen = document.getElementById("screen");
+    let reset = document.getElementById("reset");
+
+    green.onclick = function() {
+        color = "#A8D5BA";
+
+        green.classList.add("selected");
+        blue.classList.remove("selected");
+        purple.classList.remove("selected");
+    }
+
+    blue.onclick = function() {
+        color = "#A8C7E8";
+
+        blue.classList.add("selected");
+        green.classList.remove("selected");
+        purple.classList.remove("selected");
+    }
+
+    purple.onclick = function() {
+        color = "#C9B1E8";
+
+        purple.classList.add("selected");
+        green.classList.remove("selected");
+        blue.classList.remove("selected");
+    }
+
+    reset.onclick = function() {
+        screen.innerHTML = "";
+    }
+
+    screen.onclick = function(e){
+        let circle = document.createElement("div");
+
+        let size = Math.floor(Math.random() * 191) + 10;
+        console.log('clicked', e.x, e.y);
+
+        circle.style.width = size + "px";
+        circle.style.height = size + "px";
+        circle.style.backgroundColor = color;
+        circle.style.borderRadius = "50%";
+        circle.style.border = "2px solid black";
+        circle.style.position = "absolute";
+
+        circle.style.width = size + "px";
+        circle.style.height = size + "px";
+
+        circle.style.left = e.offsetX - size / 2 + "px";
+        circle.style.top = e.offsetY - size / 2 + "px";
+
+        screen.appendChild(circle);
+
+        let shrink = setInterval(function() {
+            size = size - 1;
+
+            circle.style.width = size + "px";
+            circle.style.height = size + "px";
+
+            if (size <= 0) {
+                clearInterval(shrink);
+                circle.remove();
+            }
+        }, 20);
+    };
+</script>
+
+</body>
+</html>
