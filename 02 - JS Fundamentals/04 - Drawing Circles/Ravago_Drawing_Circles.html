@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <p> Selected color: </p>
+    <select id="color">
+        <option value="blue">blue</option>
+        <option value="red">red</option>
+        <option value="green">green</option>
+    </select>
+    <div id="screen" style="background-color: black; border: 1px solid red; height: 500px;">
+
+    </div>
+  </body>
+
+  <script>
+    class Circle {
+      constructor( color, x, y, height, width){
+        this.color = color,
+        this.x = x,
+        this.y = y,
+        this.height = height,
+        this.width = width
+      };
+
+      max_size = 500;
+      
+      grow() {
+        setInterval( () => {
+          this.height += 10
+          this.width += 10
+        }, 50)
+      }
+    }
+
+    let color = 'blue';
+
+    document.getElementById('screen').onclick = function (e) {
+      let circle = new Circle(color, e.x, e.y, 100, 100);
+      let element = document.createElement("div");
+      element.style.backgroundColor = circle.color;
+      element.style.left = circle.x + "px";
+      element.style.top = circle.y + "px";
+      element.style.height = circle.height + "px";
+      element.style.width = circle.width + "px";
+      element.style.borderRadius = "50%";
+      element.style.position = "absolute";
+
+      setInterval(() => {
+        if(circle.width < 250){
+            circle.height += 10
+            circle.width += 10
+    
+            element.style.height = circle.height + "px";
+            element.style.width = circle.width + "px";
+        }
+        else {
+            element.style.display = 'none'
+        }
+      }, 50)
+
+      document.body.appendChild(element);
+      console.log("clicked", element, circle);
+    }
+
+    document.getElementById('color').onchange = function(e) {
+        color = document.getElementById('color').value
+    }
+
+  </script>
+</html>
