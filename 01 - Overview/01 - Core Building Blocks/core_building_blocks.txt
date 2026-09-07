@@ -1,0 +1,28 @@
+1. What is the benefit of learning Javascript?
+
+A. Javascript is ubiquitous in web development. It is used by the browser to interact with HTML and can even be used for backend development with engines like Node.js
+
+2. What type of applications can be built with Javascript? 
+
+A. Web app UI, Backend servers, native mobile apps with React Native, and native desktop applications using electron. 
+
+3. Which programming language is good for beginners to learn (according to Michael's perspectives)?
+
+A. None of them, focus on the 5 core building blocks.
+
+4. Which programming language is not good for beginners to learn, as their first language (according to Michael's perspectives)?
+
+A. Ruby, it abstracts too much fundamental concepts that a beginner must know and master first. It is used by experienced developers who already know fundamentals in order to speed up development time.
+
+5. Study how the 5 core building blocks are implemented from one language to another.  What are your observations?  Are they similar?  Different?  Which of these programming languages are you already familiar with?
+
+A. 
+Variable initialization - Javascript, PHP, python, and ruby are dynamically typed. Meaning you do not have to declare the type of the variable, it can be inferred later. For C++ and Java however, typing is static. 
+If/else statements - they're all quite similar, except python and ruby use indentations for scoping, and ruby has an additional end keyword to end the conditional chain.
+Loops - javascript, php, c++, and java all follow strict iterator initilization, condition, and incrementation formats while Python and Ruby have ranges. Python's stop however is exclusive while Ruby's is inclusive.
+Functions - C++ and Java require specified return types.
+OOP - JS classes aren't real classes, they work via prototypes. C++, Java, and PHP have strict encapsulation requirements, and python uses dynamic classes in its inheritance model.
+
+6. Anything else you've learned as you've read these articles and pondered about your situation?
+
+A. Yes, I learned that practicing by being given a snippet of code and predicting the output is a good way to learn.
