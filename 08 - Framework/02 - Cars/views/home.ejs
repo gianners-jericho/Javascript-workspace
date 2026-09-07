@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Car + Counter</title>
+    </head>
+    <body>
+        <h1>You did <%= data.visit_count %>x visiting this page.</h1>
+        <h2>You have <%= data.cars.length %> cars!</h2>
+
+        <p>The cars in the database are as follows:</p>
+        <ul>
+            <% for (const car of data.cars) { %>
+                <li>
+                    <%= car.name %> - <%= car.year %>
+                </li>
+            <% } %>
+        </ul>
+    </body>
+</html>
