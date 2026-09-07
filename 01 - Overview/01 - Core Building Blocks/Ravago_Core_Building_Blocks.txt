@@ -1,0 +1,33 @@
+Wendell Lance M. Ravago
+Chapter 1 - Assignment 1
+Core Building Blocks
+
+1. What is the benefit of learning Javascript?
+- Javascript can be used to develop both the front-end and the back-end without having to jump to another language, in recent times it can also be used to develop mobile apps through React Native. It also uses similar patterns and syntaxes to other C-Family languages like C++, C#, Java and PHP. It also has real-time support through Sockets.
+
+
+2. What type of applications can be built with Javascript?
+- Almost anything. Javascript has front-end support through frameworks like React (and its descendants like Next and Astro), back-end development with Node, and mobile app support with React Native and Expo. 
+
+3. Which programming language is good for beginners to learn?
+- Javascript. It's easy to learn and common in the industry.
+
+4. Which programming language is not good for beginners to learn as their first language?
+- Ruby, and by extension, Ruby on Rails. It does a bad job of teaching the fundamentals to someone new. It's recommended for experienced developers only because they know what's happening under the hood even if Ruby/Rails does most of the work for them.
+
+5. Study how the 5 core building blocks are implemented from one language to another.  What are your observations?  Are they similar?  Different?  Which of these programming languages are you already familiar with?
+
+For variables, there are languages that assign the data type on initialization, like Java (int name = ""). On the other hand, other languages like Javascript and Python just infer the type of a variable from its value (let name = "")
+
+For if/else, I think most languages have the same logic. It's always (if (condition) then... else...), only thing that differs is the syntax. Python uses indentation to separate the lines of code while Javascript uses curly braces to group lines of code together.
+
+Loops have a little bit of variety. Python uses a for...in... syntax, while the typical for-loops in Javascript still use the iterator-condition-increment pattern (let i = 0; i < length; i++).
+
+Functions are essentially the same across most languages. Java requires a return type and parameter type. Javascript does not require this unless using Typescript.
+
+OOP seems to be the strongest concept in Java, requiring strict types and structures while something like Python or Javascript can be a little bit more flexible while using less code.
+
+All in all each building block is the same in most languages, it's just the syntax that differs.
+
+6. Anything else you've learned as you've read these articles and pondered about your situation?
+- I learned that coding isn't just a black-and-white concept, there are different degrees of skill and different areas of expertise. You can be someone who knows a language from top-to-bottom but still have lots to learn.
