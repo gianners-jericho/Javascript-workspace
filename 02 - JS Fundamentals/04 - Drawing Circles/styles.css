@@ -1,0 +1,13 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px dotted rgb(96 139 168);
+}
+
+.inner-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 2px dotted rgb(96 139 168);
+}

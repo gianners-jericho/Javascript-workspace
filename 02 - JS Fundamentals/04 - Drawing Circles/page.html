@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href = "styles.css">
+    </head>
+    <body>
+        <div class="box">
+            <div class="inner-box">
+                <button id = "redButton" type="button">Red</button>
+                <button id = "purpleButton" type="button">Purple</button>
+                <button id = "greenButton" type="button">Green</button>
+            </div>
+            <!-- <div>
+                <button id="resetButton" type="button">Reset</button>
+            </div> -->
+        </div>
+
+
+        <script>
+
+            //BUTTONS
+            let currentColor = "red"; //red by default
+
+            const redButton = document.getElementById("redButton");
+            const purpleButton = document.getElementById("purpleButton");
+            const greenButton = document.getElementById("greenButton");
+
+            //BUTTON EVENT LISTENERS
+            redButton.addEventListener("click", function(){
+                currentColor = "red";
+            })
+
+            purpleButton.addEventListener("click", function(){
+                currentColor = "purple";
+            })
+
+            greenButton.addEventListener("click", function(){
+                currentColor = "green";
+            })
+            
+            //CIRCLE IMPLEMENTATION
+            class Circle {
+                diameter;
+                border_radius;
+                max_diameter;
+                color;
+
+                constructor(color, diameter){
+                    this.diameter = diameter;
+                    this.border_radius = "50%";
+                    this.color = color;
+                }
+
+                shrink(decrement){
+                    this.diameter -= decrement; 
+                }
+            }
+
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            document.onclick = (e) => {
+                console.log("clicked");
+                const circleObj = new Circle(currentColor, getRandomInt(10,200));
+                const circleElement = document.createElement("div");
+                circleElement.style.position = "absolute";
+                circleElement.style.left = e.clientX + "px"; 
+                circleElement.style.top = e.clientY + "px";
+                circleElement.style.width = circleObj.diameter + "px";
+                circleElement.style.height = circleObj.diameter + "px";
+                circleElement.style.backgroundColor = circleObj.color;
+                circleElement.style.borderRadius = circleObj.border_radius;
+                
+                document.body.appendChild(circleElement);
+
+                const growthInterval = setInterval(() => {
+                    if (circleObj.diameter > 0) {
+                        circleObj.shrink(1.5); 
+                        
+                        circleElement.style.width = circleObj.diameter + "px";
+                        circleElement.style.height = circleObj.diameter + "px";
+                    } else {
+                        clearInterval(growthInterval);
+                        circleElement.remove();  
+                    }
+                }, 25);
+            }
+        </script>
+    </body>
+</html>
