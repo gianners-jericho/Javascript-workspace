@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ES5 Proto Circles</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <p> Selected color: </p>
+    <select id="color">
+        <option value="blue">blue</option>
+        <option value="red">red</option>
+        <option value="green">green</option>
+    </select>
+    <div id="screen" style="background-color: black; border: 1px solid red; height: 500px;">
+
+    </div>
+  </body>
+
+  <script>
+    function Circle(color, x, y, size = 100, max_size = 350) {
+        this.color = color;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.max_size = max_size;
+        this.state = "growing"; // display: none if "popped"
+    }
+
+    Circle.prototype.grow = function() {
+        this.size += 10;
+        if(this.size >= this.max_size){
+            this.pop();
+        }
+    };
+
+    Circle.prototype.pop = function() {
+        this.state = "popped";
+    };
+
+    let color = 'blue'; // default value
+    let circles = []; // keep {class, div} for sync
+
+    function createCircle(color, x, y) {
+        let circle = new Circle(color, x, y);
+        let element = document.createElement("div");
+
+        element.style.backgroundColor = circle.color;
+        element.style.left = circle.x + "px";
+        element.style.top = circle.y + "px";
+        element.style.height = circle.size + "px";
+        element.style.width = circle.size + "px";
+        element.style.borderRadius = "50%";
+        element.style.position = "absolute";
+
+        document.body.appendChild(element)
+        circles.push({circle, element});
+    } 
+
+    // add event listening for clicks
+    document.getElementById('screen').onclick = function (e) {
+        createCircle(color, e.clientX, e.clientY)
+    }
+
+    // change selected color for new circles
+    document.getElementById('color').onchange = function() {
+        color = document.getElementById('color').value
+    }
+
+    // render every 50ms
+    setInterval(() => {
+        for(let i = 0; i < circles.length; i++){
+            let {circle, element} = circles[i];
+
+            if(circle.state == "popped"){
+                // remove if already popped
+                element.style.display = "none";
+            }
+            else {
+                // else grow instead
+                circle.grow();
+                element.style.width = circle.size + "px";
+                element.style.height = circle.size + "px";
+            }
+        }
+    }, 50)
+  </script>
+</html>
