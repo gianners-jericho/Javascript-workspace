@@ -1,3 +1,10 @@
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  // The maximum is exclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 class Circle {
     constructor(color, x, y, size = 100, max_size = 350){
         this.color = color;
@@ -18,13 +25,6 @@ class Circle {
     pop() {
         this.state = "popped"
     };
-}
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  // The maximum is exclusive and the minimum is inclusive
-  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 class cLib {

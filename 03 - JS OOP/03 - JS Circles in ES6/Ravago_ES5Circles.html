@@ -17,6 +17,23 @@
   </body>
 
   <script>
+
+    let color = 'blue'; // default value
+
+    // add event listening for clicks
+    document.getElementById('screen').onclick = function (e) {
+        createCircle(color, e.clientX, e.clientY)
+    }
+
+    // change selected color for new circles
+    document.getElementById('color').onchange = function() {
+        color = document.getElementById('color').value
+    }
+
+    // Circle Generation
+
+    let circles = []; // keep {class, div} for sync
+
     function Circle(color, x, y, size = 100, max_size = 350) {
         this.color = color;
         this.x = x;
@@ -37,9 +54,6 @@
         };
     }
     
-    let color = 'blue'; // default value
-    let circles = []; // keep {class, div} for sync
-
     function createCircle(color, x, y) {
         let circle = new Circle(color, x, y);
         let element = document.createElement("div");
@@ -55,16 +69,6 @@
         document.body.appendChild(element)
         circles.push({circle, element});
     } 
-
-    // add event listening for clicks
-    document.getElementById('screen').onclick = function (e) {
-        createCircle(color, e.clientX, e.clientY)
-    }
-
-    // change selected color for new circles
-    document.getElementById('color').onchange = function() {
-        color = document.getElementById('color').value
-    }
 
     // render every 50ms
     setInterval(() => {

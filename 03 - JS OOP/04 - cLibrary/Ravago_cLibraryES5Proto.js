@@ -1,3 +1,10 @@
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  // The maximum is exclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function Circle(color, x, y, size = 100, max_size = 350){
     this.color = color;
     this.x = x;
@@ -17,13 +24,6 @@ Circle.prototype.grow = function() {
 Circle.prototype.pop = function() {
     this.state = "popped"
 };
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  // The maximum is exclusive and the minimum is inclusive
-  return Math.floor(Math.random() * (max - min)) + min;
-}
 
 function cLib(amount){
     this.live_circles = [];
