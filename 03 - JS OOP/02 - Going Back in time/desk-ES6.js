@@ -29,3 +29,5 @@ let desk2 = new Desk("maple desk");
 console.log("name:", desk1.name, " color:", desk1.color);
 desk1.updateColor("brown");
 console.log("=== after update color ===", "\nname:", desk1.name, " color:", desk1.color);
+
+//time spent: 2mins

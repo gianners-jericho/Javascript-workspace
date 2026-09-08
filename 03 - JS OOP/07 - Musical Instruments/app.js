@@ -85,4 +85,4 @@ document.getElementById("btn-play").addEventListener("click", () => {
 // Initial display load
 updateDisplay();
 
-//time spent: 2hrs
+//time spent: 3hrs

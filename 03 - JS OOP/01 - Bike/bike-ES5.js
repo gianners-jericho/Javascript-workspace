@@ -54,3 +54,5 @@ for (var i = 0; i < 3; i++){
     scooter.reverse();
 }
 scooter.displayInfo();
+
+//time spent: 10mins
