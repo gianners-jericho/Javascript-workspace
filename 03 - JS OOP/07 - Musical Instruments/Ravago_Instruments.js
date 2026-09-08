@@ -17,21 +17,7 @@ class Note {
     }
 
     play() {
-        const soundFiles = [
-            "c3.mp3",
-            "d3.mp3",
-            "e3.mp3",
-            "f3.mp3",
-            "g3.mp3",
-            "a3.mp3",
-            "b3.mp3"
-        ];
-
-        const audio = new Audio(
-            `sounds/${soundFiles[this.pitch - 1]}`
-        );
-
-        audio.play();
+        
     }
 }
 
@@ -82,13 +68,6 @@ class Instrument {
             this.records[i].show();
         }
     }
-
-    playRecords(){
-        for(let i = 0; i < this.records.length; i++){
-            console.log(`playing ${this.records[i].note}`)
-            this.records[i].play();
-        }
-    }
 }
 
 class Piano extends Instrument {
@@ -105,6 +84,22 @@ class Piano extends Instrument {
 
     playRecords(){
         // play using piano mp3s
+        const soundFiles = [
+            "c3.mp3",
+            "d3.mp3",
+            "e3.mp3",
+            "f3.mp3",
+            "g3.mp3",
+            "a3.mp3",
+            "b3.mp3"
+        ];
+        for(let i = 0; i < this.records.length; i++){
+            const audio = new Audio(
+                `sounds/${soundFiles[this.records[i].pitch - 1]}`
+            );
+    
+            audio.play();
+        }
     }
 }
 
