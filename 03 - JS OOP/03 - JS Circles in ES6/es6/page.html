@@ -1,0 +1,87 @@
+<!-- no changes, original implementation was already in ES6 -->
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href = "styles.css">
+    </head>
+    <body>
+        <div class="box">
+            <!-- no need for id attributes, removed and replaced with custom color data attribute instead -->
+            <button data-color="red" type="button">Red</button>
+            <button data-color="purple" type="button">Purple</button>
+            <button data-color="green" type="button">Green</button>
+        </div>
+
+
+        <script>
+
+            const config = {
+                default_color: "red",
+                min_diameter: 10,
+                max_diameter: 200,
+                shrink_rate: 1.5,
+                animation_interval_ms: 25,
+            }
+
+            //BUTTONS
+            let currentColor = config.default_color;
+            const buttonContainer = document.querySelector(".box");
+
+            //EVENT LISTENER FOR BUTTONS CONTAINER
+            buttonContainer.addEventListener("click", (e) => {
+                if (e.target.dataset.color) {
+                    currentColor = e.target.dataset.color; //CHECKS TARGET COLOR OF BUTTON CLICKED AND SET AS CURRENT COLOR
+                }
+            });
+            
+            //CIRCLE IMPLEMENTATION
+            class Circle {
+                constructor(color, diameter){
+                    this.diameter = diameter;
+                    this.color = color;
+                }
+
+                shrink(decrement){
+                    this.diameter -= decrement; 
+                }
+
+                get isAlive(){
+                    return this.diameter > 0;
+                }
+            }
+
+            //RETURN RANDOM INTEGER BETWEEN RANGE
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            //ON CLICK HANDLER
+            document.onclick = (e) => {
+                console.log("clicked");
+                const circleObj = new Circle(currentColor, getRandomInt(config.min_diameter, config.max_diameter));
+                const circleElement = document.createElement("div");
+                circleElement.className = "circle";
+                circleElement.style.left = e.clientX + "px"; 
+                circleElement.style.top = e.clientY + "px";
+                circleElement.style.width = circleObj.diameter + "px";
+                circleElement.style.height = circleObj.diameter + "px";
+                circleElement.style.backgroundColor = circleObj.color;
+                
+                document.body.appendChild(circleElement);
+
+                const shrinkInterval = setInterval(() => {
+                    if (circleObj.isAlive) {
+                        circleObj.shrink(config.shrink_rate); 
+                        
+                        circleElement.style.width = circleObj.diameter + "px";
+                        circleElement.style.height = circleObj.diameter + "px";
+                    } else {
+                        clearInterval(shrinkInterval);
+                        circleElement.remove();  
+                    }
+                }, config.animation_interval_ms); 
+            }
+        </script>
+    </body>
+</html>
