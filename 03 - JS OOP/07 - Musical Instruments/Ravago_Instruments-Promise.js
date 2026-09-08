@@ -78,7 +78,7 @@ class Piano extends Instrument {
         console.log(`${this.brand} ${this.model} - ${this.color}`)
     }
 
-    playRecords(){
+    async playRecords(){
         // play using piano mp3s
         const soundFiles = [
             "c3.mp3",
@@ -93,8 +93,12 @@ class Piano extends Instrument {
             const audio = new Audio(
                 `sounds/${soundFiles[this.records[i].pitch - 1]}`
             );
-    
-            audio.play();
+
+            await new Promise((resolve, reject) => {
+                audio.addEventListener("ended", resolve);
+                audio.addEventListener("error", reject);
+                audio.play().catch(reject);
+            });
         }
     }
 }

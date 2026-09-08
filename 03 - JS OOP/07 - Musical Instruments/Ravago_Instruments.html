@@ -5,15 +5,23 @@
   </head>
   <body>
     <button id="start">Start</button>
+    <button id="autocompose">Compose</button>
+    <p id="notes"></p>
   </body>
 
-  <script src="Ravago_Instruments.js">
+  <script src="Ravago_Instruments-Promise.js">
   </script>
   <script>
+    const instrument2 = new Piano("Honda", "S", "Blue")
+
     document.getElementById('start').onclick = function(e){
-      const instrument2 = new Piano("Honda", "S", "Blue")
-      instrument2.autoCompose(10);
       instrument2.playRecords();
+    }
+
+    document.getElementById('autocompose').onclick = function(e){
+      instrument2.autoCompose(10);
+      const records = instrument2.showRecords();
+      document.getElementById('notes').innerText = records;
     }
   </script>
 </html>
