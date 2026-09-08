@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Musical Instruments</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f4f4f9; color: #333; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+        button { padding: 8px 14px; font-weight: bold; cursor: pointer; border: 1px solid #333; background: #fff; border-radius: 4px; }
+        button:hover { background: #e2e2e2; }
+        input, select { padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .record-display { background: #222; color: #00ffcc; font-family: monospace; padding: 15px; border-radius: 6px; min-height: 40px; }
+    </style>
+</head>
+<body>
+
+    <h1>🎼 JS Musical Instruments</h1>
+
+    <!-- Instrument Selector -->
+    <div class="card">
+        <h3>Active Instrument</h3>
+        <select id="instrument-select">
+            <option value="piano">Piano (Yamaha P-125)</option>
+            <option value="xylophone">Xylophone (Stagg Set)</option>
+        </select>
+    </div>
+
+    <!-- Controls -->
+    <div class="card">
+        <h3>Composition Controls</h3>
+        
+        <div class="controls">
+            <select id="note-name">
+                <option value="do">DO</option>
+                <option value="re">RE</option>
+                <option value="mi">MI</option>
+                <option value="fa">FA</option>
+                <option value="sol">SOL</option>
+                <option value="la">LA</option>
+                <option value="ti">TI</option>
+            </select>
+
+            <input type="number" id="note-pitch" min="1" max="7" value="4" placeholder="Pitch (1-7)">
+            <button id="btn-add">Add Note</button>
+            <button id="btn-remove">Remove Last Note</button>
+            <button id="btn-shuffle">Shuffle Record</button>
+        </div>
+
+        <hr>
+
+        <div class="controls">
+            <input type="number" id="pos-index" min="1" value="1" placeholder="Pos">
+            <button id="btn-change">Change Note at Pos</button>
+        </div>
+
+        <hr>
+
+        <div class="controls">
+            <input type="number" id="auto-count" min="1" max="20" value="8" placeholder="Num Notes">
+            <button id="btn-autocompose">Auto-Compose</button>
+            <button id="btn-play" style="background: #28a745; color: white;">▶ Play Song</button>
+        </div>
+    </div>
+
+    <!-- Live Display -->
+    <div class="card">
+        <h3>Recorded Score</h3>
+        <div id="record-log" class="record-display">No notes recorded yet.</div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
