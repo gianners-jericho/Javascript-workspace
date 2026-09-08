@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cLibrary Interactive Batch Showcase</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #0f172a; color: #f8fafc; padding: 2rem; display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+        
+        header { text-align: center; max-width: 650px; }
+        header h1 { font-size: 2.2rem; color: #38bdf8; margin-bottom: 0.5rem; }
+        header p { color: #94a3b8; font-size: 0.95rem; }
+
+        /* Canvas Grid Layout */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; width: 100%; max-width: 1100px; }
+        
+        /* Card & UI Controls */
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; }
+        .card-header h2 { font-size: 1.1rem; color: #f1f5f9; }
+        .card-header span { font-size: 0.8rem; color: #38bdf8; background: #0c4a6e; padding: 2px 8px; border-radius: 12px; }
+        
+        button {
+            background: #0284c7; color: #fff; border: none; padding: 6px 12px; 
+            border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+        }
+        button:hover { background: #0369a1; }
+
+        /* The canvas targets */
+        .canvas-area {
+            height: 280px;
+            background: #090d16;
+            border: 2px dashed #334155;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        /* Absolutely positioned library circles */
+        .circle { position: absolute; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>cLibrary (Circles.js) Batch Demo</h1>
+        <p>Demonstrating independent batch instantiation: 20 circles vs 50 circles vs 100 circles rendering simultaneously.</p>
+    </header>
+
+    <div class="grid">
+        <!-- Canvas 1: 20 Circles -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Light Density <span>20 Circles</span></h2>
+                <button onclick="spawnLight()">Spawn 20</button>
+            </div>
+            <div id="canvas-light" class="canvas-area"></div>
+        </div>
+
+        <!-- Canvas 2: 50 Circles -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Medium Density <span>50 Circles</span></h2>
+                <button onclick="spawnMedium()">Spawn 50</button>
+            </div>
+            <div id="canvas-medium" class="canvas-area"></div>
+        </div>
+
+        <!-- Canvas 3: 100 Circles -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Heavy Density <span>100 Circles</span></h2>
+                <button onclick="spawnHeavy()">Spawn 100</button>
+            </div>
+            <div id="canvas-heavy" class="canvas-area"></div>
+        </div>
+    </div>
+
+    <!-- Import our library script -->
+    <!-- <script src="circles-ES5.js"></script> -->
+    <!-- <script src="circles-ES5-prototype.js"></script> -->
+    <script src="circles-ES6.js"></script>
+
+    <script>
+        // Instantiate controllers with desired batch sizes and their containers
+        let libLight = new Clib(20, "canvas-light");
+        let libMed = new Clib(50, "canvas-medium");
+        let libHeavy = new Clib(100, "canvas-heavy");
+
+        // Button trigger functions 
+        function spawnLight() {
+            libLight.draw_circles();
+        }
+
+        function spawnMedium() {
+            libMed.draw_circles();
+        }
+
+        function spawnHeavy() {
+            libHeavy.draw_circles();
+        }
+    </script>
+</body>
+</html>
