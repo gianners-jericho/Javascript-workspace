@@ -5,9 +5,10 @@
     </head>
     <body>
         <div class="box">
-            <button id = "redButton" type="button">Red</button>
-            <button id = "purpleButton" type="button">Purple</button>
-            <button id = "greenButton" type="button">Green</button>
+            <!-- no need for id attributes, removed and replaced with custom color data attribute instead -->
+            <button data-color="red" type="button">Red</button>
+            <button data-color="purple" type="button">Purple</button>
+            <button data-color="green" type="button">Green</button>
         </div>
 
 
@@ -22,24 +23,15 @@
             }
 
             //BUTTONS
-            let currentColor = "red"; //red by default
+            let currentColor = config.default_color;
+            const buttonContainer = document.querySelector(".box");
 
-            const redButton = document.getElementById("redButton");
-            const purpleButton = document.getElementById("purpleButton");
-            const greenButton = document.getElementById("greenButton");
-
-            //BUTTON EVENT LISTENERS
-            redButton.addEventListener("click", function(){
-                currentColor = "red";
-            })
-
-            purpleButton.addEventListener("click", function(){
-                currentColor = "purple";
-            })
-
-            greenButton.addEventListener("click", function(){
-                currentColor = "green";
-            })
+            //EVENT LISTENER FOR BUTTONS CONTAINER
+            buttonContainer.addEventListener("click", (e) => {
+                if (e.target.dataset.color) {
+                    currentColor = e.target.dataset.color; //CHECKS TARGET COLOR OF BUTTON CLICKED AND SET AS CURRENT COLOR
+                }
+            });
             
             //CIRCLE IMPLEMENTATION
             class Circle {
