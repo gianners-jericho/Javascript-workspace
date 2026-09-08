@@ -9,7 +9,7 @@ Pretty much everything:
 - Websites
 - The back end, using Node.js
 - Phone apps, using React Native
-- Desktop apps — Slack, Discord, and VS Code are all built this way
+- Desktop apps — Slack, Discord, and VS Code are all built self way
 - Real-time stuff like live chat and live scores
 - Browser games
 

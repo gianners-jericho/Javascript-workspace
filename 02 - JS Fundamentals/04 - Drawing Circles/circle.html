@@ -33,9 +33,9 @@
 </head>
 <body>
 
-    <div class="box" id="green" style="background-color:#00ff00"></div>
-    <div class="box" id="blue" style="background-color:#007bff"></div>
-    <div class="box" id="purple" style="background-color:#7700ff"></div>
+    <div class="box" id="green" color_of="#00ff00" style="background-color:#00ff00"></div>
+    <div class="box" id="blue" color_of="#007bff" style="background-color:#007bff"></div>
+    <div class="box" id="purple" color_of="#7700ff" style="background-color:#7700ff"></div>
     <div class="reset">
         <button id="reset">Reset</button>
     </div>
@@ -44,24 +44,16 @@
 
     <script>
         var board = document.getElementById("screen");
-
-        var greenBox = document.getElementById("green");
-        var blueBox = document.getElementById("blue");
-        var purpleBox = document.getElementById("purple");
+        var boxes = document.querySelectorAll(".box");
 
         // CHANGE COLOR
-        greenBox.addEventListener("click", function() {
-            color = "#00ff00";
-            highlight(greenBox);
-        });
-        blueBox.addEventListener("click", function() {
-            color = "#007bff";
-            highlight(blueBox);
-        });
-        purpleBox.addEventListener("click", function() {
-            color = "#7700ff";
-            highlight(purpleBox);
-        });
+        let i = 0;
+        for (i = 0; i < boxes.length; i++) {
+            boxes[i].addEventListener("click", function() {
+                color = this.dataset.color;
+                highlight(this);
+            });
+        }
 
 
         // RESET

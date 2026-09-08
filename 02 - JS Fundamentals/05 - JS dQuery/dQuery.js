@@ -1,64 +1,64 @@
 class lib {
   constructor(target) {
-    this.target = target
+    self.target = target
   }
 
   elements() {
-    return document.querySelectorAll(this.target)
+    return document.querySelectorAll(self.target)
   }
 
   hide() {
-    for (const element of this.elements()) {
+    for (const element of self.elements()) {
       element.style.display = "none"
     }
-    return this
+    return self
   }
 
   show() {
-    for (const element of this.elements()) {
+    for (const element of self.elements()) {
       element.style.display = ""
     }
-    return this
+    return self
   }
 
   click(callback) {
-    for (const element of this.elements()) {
+    for (const element of self.elements()) {
       element.addEventListener('click', callback)
     }
-    return this
+    return self
   }
 
   on(eventName, callback) {
-    for (const element of this.elements()) {
+    for (const element of self.elements()) {
       element.addEventListener(eventName, callback)
     }
-    return this
+    return self
   }
 
   each(callback) {
     let index = 0
-    for (const element of this.elements()) {
+    for (const element of self.elements()) {
       callback.call(element, element, index)
       index++
     }
-    return this
+    return self
   }
 
   text(newText) {
     if (newText === undefined) {
-      return this.elements()[0] ? this.elements()[0].textContent : ''
+      return self.elements()[0] ? self.elements()[0].textContent : ''
     }
-    for (const element of this.elements()) {
+    for (const element of self.elements()) {
       element.textContent = newText
     }
-    return this
+    return self
   }
 
   css(property, value) {
-    for (const element of this.elements()) {
+    for (const element of self.elements()) {
       element.style[property] = value
     }
-    return this
+    return self
   }
 }
 

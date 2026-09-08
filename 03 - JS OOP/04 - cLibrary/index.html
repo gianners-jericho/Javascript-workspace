@@ -1,0 +1,28 @@
+<html>
+<head>
+   <title>JS Circle Demo</title>
+   <style>
+      #canvas {
+         position: relative;
+         width: 100%;
+         height: 700px;
+         border: 1px solid #ccc;
+      }
+      .circle {
+         position: absolute;
+         border-radius: 50%;
+      }
+   </style>
+   <script src="circle.ES5-without.js"></script>
+</head>
+<body>
+   <div id='canvas'></div>
+   <script>
+      // initialize cLib (circleLibrary) with 100 circles
+      let cLib = new Circles(100);
+
+      // draw 100 circles on #canvas
+      cLib.draw_circles("canvas");
+   </script>
+</body>
+</html>

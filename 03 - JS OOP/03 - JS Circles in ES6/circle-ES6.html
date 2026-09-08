@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawing Circles - ES6</title>
+    <style>
+        .box {
+            display: inline-block;
+            width: 60px;
+            height: 35px;
+            border: 2px solid black;
+        }
+
+        #screen {
+            width: 100%;
+            height: 700px;
+        }
+
+        .circle {
+            position: absolute;
+            border: 3px solid black;
+            border-radius: 50%;
+        }
+        .reset {
+            position: absolute;
+            left: 90%;
+            top: 1%;
+        }
+        #reset {
+            width: 100px;
+            height: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box" id="green" color_of="#00ff00" style="background-color:#00ff00"></div>
+    <div class="box" id="blue" color_of="#007bff" style="background-color:#007bff"></div>
+    <div class="box" id="purple" color_of="#7700ff" style="background-color:#7700ff"></div>
+    <div class="reset">
+        <button id="reset">Reset</button>
+    </div>
+
+    <div id="screen"></div>
+
+    <script>
+        const board = document.getElementById("screen");
+        const boxes = document.querySelectorAll(".box");
+
+        let color = "#00ff00";
+
+        // CIRCLE CLASS
+        class Circle {
+            constructor(x, y, radius, color) {
+                this.radius = radius;
+                this.left = x - radius;
+                this.top = y - radius;
+                this.color = color;
+                this.element = null;
+            }
+
+            display() {
+                this.element = document.createElement("div");
+                this.element.className = "circle";
+                this.element.style.width = `${this.radius * 2}px`;
+                this.element.style.height = `${this.radius * 2}px`;
+                this.element.style.left = `${this.left}px`;
+                this.element.style.top = `${this.top}px`;
+                this.element.style.backgroundColor = this.color;
+
+                board.appendChild(this.element);
+            }
+
+            shrink() {
+                let size = this.radius * 2;
+                let left = this.left;
+                let top = this.top;
+
+                const timer = setInterval(() => {
+                    size -= 2;
+                    left += 1;
+                    top += 1;
+
+                    if (size <= 0) {
+                        clearInterval(timer);
+                        if (this.element.parentNode != null) {
+                            board.removeChild(this.element);
+                        }
+                    }
+                    else {
+                        this.element.style.width = `${size}px`;
+                        this.element.style.height = `${size}px`;
+                        this.element.style.left = `${left}px`;
+                        this.element.style.top = `${top}px`;
+                    }
+                }, 50);
+            }
+        }
+
+        // CHANGE COLOR
+        let i = 0;
+        for (i = 0; i < boxes.length; i++) {
+            boxes[i].addEventListener("click", function() {
+                color = this.dataset.color;
+            });
+        }
+
+        // RESET
+        document.getElementById("reset").addEventListener("click", () => {
+            board.innerHTML = "";
+        });
+
+        // CLICK
+        board.addEventListener("click", (event) => {
+            const radius = Math.floor(Math.random() * 191) + 10;
+
+            const circle = new Circle(event.pageX, event.pageY, radius, color);
+            circle.display();
+            circle.shrink();
+        });
+    </script>
+
+</body>
+</html>

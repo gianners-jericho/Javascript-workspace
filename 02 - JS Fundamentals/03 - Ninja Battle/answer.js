@@ -3,7 +3,7 @@ var ninja1 = {
   strength: 15,
   attack: function() {
      //your code
-     return Math.floor(Math.random() * (this.strength + 1));
+     return Math.floor(Math.random() * (self.strength + 1));
   }
 }
 var ninja2 = {
@@ -11,7 +11,7 @@ var ninja2 = {
   strength: 10,
   attack: function() {
     //your code
-    return Math.floor(Math.random() * (this.strength + 1));
+    return Math.floor(Math.random() * (self.strength + 1));
   }
 }
 
