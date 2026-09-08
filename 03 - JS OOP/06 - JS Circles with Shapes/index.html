@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drawing Shapes</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: white;
+            font-family: sans-serif;
+        }
+
+        #top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background-color: #f5f5f5;
+            border-bottom: 2px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Color Buttons */
+        .color-btn {
+            width: 40px;
+            height: 25px;
+            border: 2px solid #333;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        .color-btn.selected {
+            border: 3px solid black;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        /* Shape Selector Buttons */
+        .shape-btn {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #333;
+            cursor: pointer;
+            background-color: white; /* Unselected default */
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        .shape-btn.circle-selector {
+            border-radius: 50%;
+        }
+
+        .shape-btn.star-selector {
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            border: none;
+            background-color: #333; /* Fallback border effect */
+            padding: 2px;
+        }
+
+        /* Reset Button */
+        #btn-reset {
+            padding: 8px 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px solid #333;
+            background-color: white;
+            border-radius: 4px;
+        }
+        #btn-reset:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Dynamic Canvas Area */
+        #canvas {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+        }
+
+        /* Shape DOM Base Styling */
+        .shape {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* Allows clicking through existing shapes */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="top-bar">
+        <!-- Color Options -->
+        <div class="control-group" id="color-selectors">
+            <div class="color-btn selected" id="btn-green" data-color="#9cd39c" style="background-color: #9cd39c;"></div>
+            <div class="color-btn" id="btn-blue" data-color="#a3c2f0" style="background-color: #a3c2f0;"></div>
+            <div class="color-btn" id="btn-purple" data-color="#b8a1dc" style="background-color: #b8a1dc;"></div>
+        </div>
+
+        <!-- Shape Options -->
+        <div class="control-group" id="shape-selectors">
+            <div class="shape-btn circle-selector" id="select-circle" data-shape="circle"></div>
+            <div class="shape-btn square-selector" id="select-square" data-shape="square"></div>
+            <div class="shape-btn star-selector" id="select-star" data-shape="star"></div>
+        </div>
+
+        <!-- Reset Button -->
+        <button id="btn-reset">Reset</button>
+    </div>
+
+    <div id="canvas"></div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
