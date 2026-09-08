@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Instruments</title>
+  </head>
+  <body>
+    <button id="start">Start</button>
+  </body>
+
+  <script src="Ravago_Instruments.js">
+  </script>
+  <script>
+    document.getElementById('start').onclick = function(e){
+      const instrument2 = new Piano("Honda", "S", "Blue")
+      instrument2.autoCompose(10);
+      instrument2.playRecords();
+    }
+  </script>
+</html>
