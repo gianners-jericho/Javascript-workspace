@@ -27,7 +27,6 @@ class Case {
 }
 
 class Defendant extends Person {
-    case;
     constructor (name, age){
         super(name, age)
     }
@@ -52,7 +51,7 @@ class TrialCourt {
     }
 
     static initiateTrial(defendant, prosecutor){ 
-        const verdict = getVerdict(defendant);
+        const verdict = this.getVerdict(defendant);
         console.log(`
             Name: ${defendant.name}
             Age: ${defendant.age} years old
