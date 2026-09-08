@@ -1,7 +1,7 @@
 //Circle class in ES5
 function Circle(x, y, color){
     //constructor in ES5
-    this.diameter = Math.round(Math.random() * (200 - 10 + 1)) + 10;
+    this.diameter = Math.round(Math.random() * (200 - 10 + 1)) + 10; //Compute random diameter between 10px and 200
     this.radius = this.diameter / 2;
     this.x = x; //x coordinate value of the click
     this.y = y; //y coordinate value of the click
