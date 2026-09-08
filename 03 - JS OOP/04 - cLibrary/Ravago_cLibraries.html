@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ES6 Circles</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <!-- <script src="Ravago_cLibraryES6.js"></script> -->
+  <!-- <script src="Ravago_cLibraryES5Proto.js"></script> -->
+   <script src="Ravago_cLibraryES5.js"></script>
+  <body>
+    <button id="start">Start</button>
+    <div id="screen" style="background-color: black; border: 1px solid red; height: 500px;">
+
+    </div>
+  </body>
+
+  <script>
+      let circles = new cLib(100);
+
+      document.getElementById("start").onclick = function () {
+        circles.drawCircles("#screen")
+      }
+  </script>
+</html>
