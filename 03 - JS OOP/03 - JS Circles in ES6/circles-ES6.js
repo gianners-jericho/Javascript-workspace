@@ -3,7 +3,7 @@ class Circle {
 
     //constructor
     constructor(x, y, color){
-        this.diameter = Math.round(Math.random() * (200 - 10 + 1)) + 10;
+        this.diameter = Math.round(Math.random() * (200 - 10 + 1)) + 10; //Compute random diameter between 10px and 200
         this.radius = this.diameter / 2;
         this.x = x; //x coordinate value of the click
         this.y = y; //y coordinate value of the click
@@ -19,6 +19,7 @@ class Circle {
         this.element.style.top = (this.y - this.radius) + "px"; //computation to get the top value
         this.element.style.backgroundColor = color;
         body.appendChild(this.element); //append the element to the body
+        this.shrink(); //start shrink when circle is created
     }
 
     //methods
@@ -85,8 +86,7 @@ controls.addEventListener("click", function(e) {
 
 // Single listener on body to spawn new OOP circle instances
 body.addEventListener("click", function(e) {
-    let circle = new Circle(e.clientX, e.clientY, currentColor);
-    circle.shrink();
+    new Circle(e.clientX, e.clientY, currentColor);
 });
 
 //time spent: 3mins
