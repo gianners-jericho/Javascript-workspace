@@ -1,0 +1,131 @@
+<html>
+<head>
+    <title>Demo</title>
+    <style>
+        #screen {
+            width: 95%;
+            height: 90%;
+            border: 2px solid black;
+            position: relative;
+        }
+
+        #screen div {
+            pointer-events: none;
+        }
+
+        .color-button {
+            border: 2px solid transparent;
+        }
+
+        .color-button.selected{
+            border: 2px solid black;
+        }
+
+        #green {
+            background-color: #A8D5BA;
+            width: 50px;
+            height: 20px;
+        }
+
+        #blue {
+            background-color: #A8C7E8;
+            width: 50px;
+            height: 20px;
+        }
+
+        #purple {
+            background-color: #C9B1E8;
+            width: 50px;
+            height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="color-button selected" id="green" data-color="#A8D5BA"></button>
+    <button class="color-button" id="blue" data-color="#A8C7E8"></button>
+    <button class="color-button" id="purple" data-color="#C9B1E8"></button>
+    
+    <button id="reset">Reset</button>
+
+    <div id="screen"></div>
+
+<script>
+    // Circle class in ES6 with shrink as a method
+    class Circle {
+        constructor(color, x, y, size){
+            this.color = color;
+            this.x = x;
+            this.y = y;
+            this.size = size;
+        }
+
+        shrink(element){
+            let shrink = setInterval(() => {
+                this.size--;
+
+                element.style.width = this.size + "px";
+                element.style.height = this.size + "px";
+
+                if (this.size <= 0){
+                    clearInterval(shrink);
+                    element.remove();
+                }
+            }, 20);
+        }
+    }
+
+    // Setting the default color to pastel green
+    let color = "#A8D5BA";
+    
+    // Setting the variables needed for all of this to work
+    let screen = document.getElementById("screen");
+    let reset = document.getElementById("reset");
+    let colorButtons = document.getElementsByClassName("color-button");
+    
+    // Simplification for the color buttons to avoid repeating blocks of code
+    let selectedButton = colorButtons[0];
+
+    for (let i = 0; i < colorButtons.length; i++){
+        colorButtons[i].onclick = function() {
+            color = this.dataset.color;
+            selectedButton.classList.remove("selected");
+            this.classList.add("selected");
+            selectedButton = this;
+        };
+    }
+
+    // For resetting the screen 
+    reset.onclick = function() {
+        screen.innerHTML = "";
+    }
+
+    // Screen where circles can be created
+    screen.onclick = function(e){
+        let size = Math.floor(Math.random() * 191) + 10; // For setting the random sizes of the circles
+        console.log('clicked', e.x, e.y);
+
+        // Created a circle object
+        let circle = new Circle(color, e.offsetX, e.offsetY, size);
+
+        // Created an element variable to manipulate and set circle attributes
+        let element = document.createElement("div");
+
+        element.style.width = circle.size + "px";
+        element.style.height = circle.size + "px";
+        element.style.backgroundColor = circle.color;
+        element.style.borderRadius = "50%";
+        element.style.border = "2px solid black";
+        element.style.position = "absolute";
+
+        element.style.left = circle.x - circle.size / 2 + "px";
+        element.style.top = circle.y - circle.size / 2 + "px";
+
+        screen.appendChild(element);
+
+        circle.shrink(element);
+    };
+</script>
+
+</body>
+</html>
