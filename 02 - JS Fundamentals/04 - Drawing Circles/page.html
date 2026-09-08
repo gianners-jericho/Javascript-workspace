@@ -4,7 +4,7 @@
         <link rel="stylesheet" href = "styles.css">
     </head>
     <body>
-        <div class="inner-box">
+        <div class="box">
             <button id = "redButton" type="button">Red</button>
             <button id = "purpleButton" type="button">Purple</button>
             <button id = "greenButton" type="button">Green</button>
@@ -12,6 +12,14 @@
 
 
         <script>
+
+            const config = {
+                default_color: "red",
+                min_diameter: 10,
+                max_diameter: 200,
+                shrink_rate: 1.5,
+                animation_interval_ms: 25,
+            }
 
             //BUTTONS
             let currentColor = "red"; //red by default
@@ -35,51 +43,50 @@
             
             //CIRCLE IMPLEMENTATION
             class Circle {
-                diameter;
-                border_radius;
-                max_diameter;
-                color;
-
                 constructor(color, diameter){
                     this.diameter = diameter;
-                    this.border_radius = "50%";
                     this.color = color;
                 }
 
                 shrink(decrement){
                     this.diameter -= decrement; 
                 }
+
+                get isAlive(){
+                    return this.diameter > 0;
+                }
             }
 
+            //RETURN RANDOM INTEGER BETWEEN RANGE
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
 
+            //ON CLICK HANDLER
             document.onclick = (e) => {
                 console.log("clicked");
-                const circleObj = new Circle(currentColor, getRandomInt(10,200));
+                const circleObj = new Circle(currentColor, getRandomInt(config.min_diameter, config.max_diameter));
                 const circleElement = document.createElement("div");
-                circleElement.style.position = "absolute";
+                circleElement.className = "circle";
                 circleElement.style.left = e.clientX + "px"; 
                 circleElement.style.top = e.clientY + "px";
                 circleElement.style.width = circleObj.diameter + "px";
                 circleElement.style.height = circleObj.diameter + "px";
                 circleElement.style.backgroundColor = circleObj.color;
-                circleElement.style.borderRadius = circleObj.border_radius;
                 
                 document.body.appendChild(circleElement);
 
-                const growthInterval = setInterval(() => {
-                    if (circleObj.diameter > 0) {
-                        circleObj.shrink(1.5); 
+                const shrinkInterval = setInterval(() => {
+                    if (circleObj.isAlive) {
+                        circleObj.shrink(config.shrink_rate); 
                         
                         circleElement.style.width = circleObj.diameter + "px";
                         circleElement.style.height = circleObj.diameter + "px";
                     } else {
-                        clearInterval(growthInterval);
+                        clearInterval(shrinkInterval);
                         circleElement.remove();  
                     }
-                }, 25);
+                }, config.animation_interval_ms); 
             }
         </script>
     </body>
