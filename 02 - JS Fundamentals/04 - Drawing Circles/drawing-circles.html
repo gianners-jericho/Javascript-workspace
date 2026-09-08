@@ -42,9 +42,9 @@
 </head>
 
 <body>
-    <button class="color-button selected" id="green"></button>
-    <button class="color-button" id="blue"></button>
-    <button class="color-button" id="purple"></button>
+    <button class="color-button selected" id="green" data-color="#A8D5BA"></button>
+    <button class="color-button" id="blue" data-color="#A8C7E8"></button>
+    <button class="color-button" id="purple" data-color="#C9B1E8"></button>
     
     <button id="reset">Reset</button>
 
@@ -53,36 +53,21 @@
 <script>
     let color = "#A8D5BA";
 
-    let green = document.getElementById("green");
-    let blue = document.getElementById("blue");
-    let purple = document.getElementById("purple");
-    
     let screen = document.getElementById("screen");
     let reset = document.getElementById("reset");
+    let colorButtons = document.getElementsByClassName("color-button");
 
-    green.onclick = function() {
-        color = "#A8D5BA";
+    let selectedButton = colorButtons[0];
 
-        green.classList.add("selected");
-        blue.classList.remove("selected");
-        purple.classList.remove("selected");
+    for (let i = 0; i < colorButtons.length; i++){
+        colorButtons[i].onclick = function() {
+            color = this.dataset.color;
+            selectedButton.classList.remove("selected");
+            this.classList.add("selected");
+            selectedButton = this;
+        };
     }
 
-    blue.onclick = function() {
-        color = "#A8C7E8";
-
-        blue.classList.add("selected");
-        green.classList.remove("selected");
-        purple.classList.remove("selected");
-    }
-
-    purple.onclick = function() {
-        color = "#C9B1E8";
-
-        purple.classList.add("selected");
-        green.classList.remove("selected");
-        blue.classList.remove("selected");
-    }
 
     reset.onclick = function() {
         screen.innerHTML = "";
@@ -110,7 +95,7 @@
         screen.appendChild(circle);
 
         let shrink = setInterval(function() {
-            size = size - 1;
+            size--;
 
             circle.style.width = size + "px";
             circle.style.height = size + "px";
