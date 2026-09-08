@@ -1,27 +1,28 @@
-//ES5 - with prototypes
+//ES6
 
-function Bike(price, max_speed, miles){
+class Bike{
+    constructor(price, max_speed, miles){
+        //attributes
+        this.price = price;
+        this.max_speed = max_speed;
+        this.miles = miles;
+    }
 
-    //attributes
-    this.price = price;
-    this.max_speed = max_speed;
-    this.miles = miles;
+    //instance methods
+    displayInfo(){
+        console.log(this.price, this.max_speed, this.miles)
+    }
 
-}
+    drive(){
+        console.log("driving");
+        this.miles += 10;
+    }
 
-//METHODS - attached to prototype object
-Bike.prototype.displayInfo = function(){
-    console.log(this.price, this.max_speed, this.miles)
-}
+    reverse(){
+        console.log("reversing");
+        this.miles -= 5;
+    }
 
-Bike.prototype.drive = function(){
-    console.log("driving");
-    this.miles += 10;
-}
-
-Bike.prototype.reverse = function(){
-    console.log("reversing");
-    this.miles -= 10;
 }
 
 //INSTANCES
