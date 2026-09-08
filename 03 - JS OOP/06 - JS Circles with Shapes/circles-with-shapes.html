@@ -1,0 +1,240 @@
+<html>
+<head>
+    <title>Shapes</title>
+    <style>
+        #screen {
+            width: 95%;
+            height: 90vh;
+            border: 2px solid black;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #screen div {
+            pointer-events: none;
+            position: absolute;
+        }
+
+        /* Color buttons */
+        .color-button {
+            width: 50px;
+            height: 20px;
+            border: 2px solid transparent;
+        }
+
+        .color-button.selected {
+            border: 2px solid black;
+        }
+
+        #green {
+            background: #A8D5BA;
+        }
+
+        #blue {
+            background: #A8C7E8;
+        }
+
+        #purple {
+            background: #C9B1E8;
+        }
+
+        /* Shape buttons */
+        .shape-button {
+            width: 50px;
+            height: 50px;
+            margin-left: 5px;
+            border: 2px solid black;
+            background: white;
+            vertical-align: middle;
+        }
+
+        .shape-button.selected {
+            background: #A8D5BA;
+        }
+
+        #circle-button {
+            border-radius: 50%;
+        }
+
+        #star-button {
+            clip-path: polygon(
+                50% 0%, 61% 35%, 98% 35%,
+                68% 57%, 79% 91%, 50% 70%,
+                21% 91%, 32% 57%, 2% 35%, 39% 35%
+            );
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HTML for color buttons -->
+    <button class="color-button selected" id="green" data-color="#A8D5BA"></button>
+    <button class="color-button" id="blue" data-color="#A8C7E8"></button>
+    <button class="color-button" id="purple" data-color="#C9B1E8"></button>
+
+    <!-- HTML for shape buttons -->
+    <button class="shape-button selected" data-shape="circle" id="circle-button"></button>
+    <button class="shape-button" data-shape="square" id="square-button"></button>
+    <button class="shape-button" data-shape="star" id="star-button">Star</button>
+
+    <!-- HTML for the reset button -->
+    <button id="reset">Reset</button>
+
+    <!-- HTML for the screen -->
+    <div id="screen"></div>
+
+    <script>
+        // General class for the shape object
+        class Shape {
+            constructor(color, x, y, size) {
+                this.color = color;
+                this.x = x;
+                this.y = y;
+                this.size = size;
+            }
+
+            // For drawing the shape and assigning its styles
+            draw(element) {
+                element.style.width = this.size + "px";
+                element.style.height = this.size + "px";
+                element.style.backgroundColor = this.color;
+                element.style.left = this.x - this.size / 2 + "px";
+                element.style.top = this.y - this.size / 2 + "px";
+            }
+
+            // For shrinking the shape 
+            shrink(element) {
+                let shrink = setInterval(() => {
+                    this.size--;
+
+                    element.style.width = this.size + "px";
+                    element.style.height = this.size + "px";
+                    element.style.left = this.x - this.size / 2 + "px";
+                    element.style.top = this.y - this.size / 2 + "px";
+
+                    if (this.size <= 0) {
+                        clearInterval(shrink);
+                        element.remove();
+                    }
+                }, 20);
+            }
+        }
+
+        // Circle child
+        class Circle extends Shape {
+            draw(element) {
+                super.draw(element);
+                element.style.borderRadius = "50%";
+                element.style.border = "2px solid black";
+            }
+        }
+
+        // Square child
+        class Square extends Shape {
+            draw(element) {
+                super.draw(element);
+                element.style.border = "2px solid black";
+            }
+        }
+
+        // Star child
+        class Star extends Shape {
+            draw(element) {
+                super.draw(element);
+                element.style.clipPath =
+                    "polygon(50% 0%, 61% 35%, 98% 35%, " +
+                    "68% 57%, 79% 91%, 50% 70%, " +
+                    "21% 91%, 32% 57%, 2% 35%, 39% 35%)";
+
+                element.style.filter = "drop-shadow(0 0 1px black)";
+            }
+        }
+
+        // Setting the defaults for the color and shape 
+        let color = "#A8D5BA"; // Pastel green as default
+        let shape = "circle"; // Circle as default
+
+        let screen = document.getElementById("screen");
+        let reset = document.getElementById("reset");
+
+        let colorButtons = document.getElementsByClassName("color-button");
+        let shapeButtons = document.getElementsByClassName("shape-button");
+
+        let selectedColorButton = colorButtons[0];
+        let selectedShapeButton = shapeButtons[0];
+
+
+        // Color selection
+        for (let i = 0; i < colorButtons.length; i++) {
+            colorButtons[i].onclick = function() {
+                color = this.dataset.color;
+
+                selectedColorButton.classList.remove("selected");
+                this.classList.add("selected");
+
+                selectedColorButton = this;
+
+                updateShapeButtons();
+            };
+        }
+
+
+        // Shape selection
+        for (let i = 0; i < shapeButtons.length; i++) {
+            shapeButtons[i].onclick = function() {
+                shape = this.dataset.shape;
+
+                selectedShapeButton.classList.remove("selected");
+                this.classList.add("selected");
+
+                selectedShapeButton = this;
+
+                updateShapeButtons();
+            };
+        }
+
+        // For adding and removing color
+        function updateShapeButtons() {
+            for (let i = 0; i < shapeButtons.length; i++) {
+                shapeButtons[i].style.backgroundColor =
+                    shapeButtons[i] === selectedShapeButton
+                        ? color
+                        : "white";
+            }
+        }
+
+        // Connect shape names to their classes
+        let shapeClasses = {
+            circle: Circle,
+            square: Square,
+            star: Star
+        };
+
+        // Screen logic
+        screen.onclick = function(e) {
+            let size = Math.floor(Math.random() * 191) + 10;
+            let ShapeClass = shapeClasses[shape];
+
+            let newShape = new ShapeClass(
+                color,
+                e.offsetX,
+                e.offsetY,
+                size
+            );
+
+            let element = document.createElement("div");
+
+            newShape.draw(element);
+            screen.appendChild(element);
+            newShape.shrink(element);
+        };
+
+        // Reset logic
+        reset.onclick = function() {
+            screen.innerHTML = "";
+        };
+
+        updateShapeButtons();
+    </script>
+</body>
+</html>
