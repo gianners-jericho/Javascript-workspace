@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Musical Instruments</title>
+    <style>
+        button {
+            width: 50px;
+            height: 50px;
+            font-size: 16px;
+            margin: 4px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Piano</h3>
+    <label>Pitch: <input type="number" id="pitch" min="1" max="7" value="4"></label>
+    <div id="piano-keys"></div>
+
+    <script src="instrument.js"></script>
+    <script>
+        const piano = new Piano("Yamaha", "P-45", "black");
+        const pitchInput = document.getElementById("pitch");
+        const keysContainer = document.getElementById("piano-keys");
+
+        Note.NAMES.forEach((name) => {
+            const key = document.createElement("button");
+            key.textContent = name;
+
+            key.addEventListener("click", () => {
+                const pitch = Number(pitchInput.value);
+                piano.playNote(new Note(name, pitch));
+            });
+
+            keysContainer.appendChild(key);
+        });
+    </script>
+
+</body>
+</html>

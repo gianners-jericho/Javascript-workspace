@@ -33,7 +33,7 @@ class Case {
 }
 
 class Defendant extends Person {
-    case; // set later by prosecute()
+    case;
     constructor(name, age) {
         super(name, age);
     }
