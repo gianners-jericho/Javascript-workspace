@@ -102,8 +102,9 @@ class Piano extends Instrument {
 
             console.log(`Playing ${filename}`)
             await new Promise((resolve, reject) => {
-                audio.addEventListener("ended", resolve);
+                ///audio.addEventListener("ended", resolve);
                 audio.addEventListener("error", reject);
+                setTimeout(resolve, 500)
                 audio.play().catch(reject);
             });
         }
