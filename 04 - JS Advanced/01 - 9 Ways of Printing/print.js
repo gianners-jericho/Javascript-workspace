@@ -54,12 +54,12 @@ executePrint("6. I love Javascript!!!", function(message) {
 
 
 //higher order function
-function createPrinter(prefix) {
+function generatePrinter(prefix) {
     return function(str) {
         console.log(`${prefix} ${str}`);
     };
 }
-const customPrinter = createPrinter("7.");
+const customPrinter = generatePrinter("7.");
 customPrinter("I love Javascript!!!");
 
 
