@@ -2,17 +2,126 @@
 <html>
   <head>
     <title>Instruments</title>
+    <style>
+      #notes, #noteButtons {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      #notes {
+        background-color: papayawhip;
+        padding: 4px;
+        border-radius: 4px;
+      }
+
+      #noteButtons {
+        gap: 4px;
+      }
+      
+      #notes div {
+        margin: 0;
+        padding: 12px;
+        width: auto;
+        border: 1px solid lightgray;
+      }
+      
+      .note_button {
+        margin: 0;
+        padding: 16px;
+        width: 48px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .note_button:hover {
+        transform: scale(1.2);
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+    </style>
   </head>
   <body>
-    <button id="start">Start</button>
-    <button id="autocompose">Compose</button>
-    <p id="notes"></p>
+    <main>
+      <div>
+        <p>Available Notes (Click to add to the track)</p>
+        <div id="noteButtons">
+          
+        </div>
+      </div>
+      <div>
+        <p>Track</p>
+        <div id="notes">
+          
+        </div>
+      </div>
+      <div>
+        <button id="start">Start</button>
+        <button id="autocompose">Compose</button>
+        <button id="shuffle">Shuffle</button>
+        <button id="removeLast">Remove Last</button>
+        <button id="clear">Clear</button>
+      </div>
+    </main>
   </body>
 
   <script src="Ravago_Instruments-Promise.js">
   </script>
   <script>
-    const instrument2 = new Piano("Honda", "S", "Blue")
+    const instrument2 = new Piano("Honda", "S", "Blue");
+
+    // notes
+    let notes = "";
+    let pitch = 0;
+
+    // generation
+    let notesList = ["do", "re", "mi", "fa", "sol", "la", "ti"];
+    let colorList = ["tomato", "orange", "dodgerblue", "mediumseagreen", "gray", "slateblue", "violet", "lightgray"];
+    let pitchList = ["3", "4", "5"];
+
+    const noteButtons = document.getElementById('noteButtons');
+
+    for(let i = 0; i < notesList.length; i++){
+      for(let j = 0; j < pitchList.length; j++){
+        const element = document.createElement('div');
+        element.classList.add('note_button');
+        element.style.backgroundColor = colorList[i];
+        element.innerText = `${notesList[i]} - ${pitchList[j]}`;
+        element.onclick = function(){
+          instrument2.addNote(notesList[i], pitchList[j]);
+          renderRecords();     
+        }
+
+        noteButtons.appendChild(element);
+      }
+    }
+
+    // Piano Controllers
+
+    function renderRecords() {
+      let noteDisplay = document.getElementById('notes')
+
+      while (noteDisplay.firstChild) {
+        noteDisplay.removeChild(noteDisplay.lastChild);
+      }
+
+      for(let i = 0; i < instrument2.records.length; i++){
+        let value = instrument2.records[i];
+        let noteIdx = notesList.indexOf(value.note);
+
+        const element = document.createElement('div');
+        element.innerText = `${value.note} - ${value.pitch}`;
+        element.style.backgroundColor = colorList[noteIdx];
+        element.onclick = function() {
+          instrument2.play(value.note, value.pitch);
+        }
+        noteDisplay.appendChild(element);
+      }
+    }
 
     document.getElementById('start').onclick = function(e){
       instrument2.playRecords();
@@ -20,7 +129,27 @@
 
     document.getElementById('autocompose').onclick = function(e){
       instrument2.autoCompose(10);
-      const records = instrument2.showRecords();
+      renderRecords();
+    }
+
+    document.getElementById('shuffle').onclick = function(e){
+      instrument2.shuffleNotes();
+      renderRecords();
+    }
+
+    document.getElementById('removeLast').onclick = function(e){
+      instrument2.removeLastNote();
+      renderRecords();
+    }
+
+    document.getElementById('removeLast').onclick = function(e){
+      instrument2.removeLastNote();
+      renderRecords();
+    }
+
+    document.getElementById('clear').onclick = function(e){
+      instrument2.clearNotes();
+      renderRecords();
     }
   </script>
 </html>

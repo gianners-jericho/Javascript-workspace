@@ -34,6 +34,10 @@ class Instrument {
         this.records[idx] = new Note(note, pitch)
     }
 
+    clearNotes(){
+        this.records = [];
+    }
+
     shuffleNotes(){
         let m = this.records.length, t = "", i = 0, array = this.records;
 
@@ -54,7 +58,7 @@ class Instrument {
         let noteList = ["do", "re", "mi", "fa", "sol", "la", "ti"];
         for(let i = 0; i < amount; i++){
             let note = noteList[getRandomInt(0, noteList.length)];
-            let pitch = getRandomInt(1, 8);
+            let pitch = getRandomInt(3, 6);
             this.records.push(new Note(note, pitch))
         }
     }
@@ -72,6 +76,11 @@ class Piano extends Instrument {
         this.brand = brand;
         this.model = model;
         this.color = color;
+        // binding of audio mp3s
+        this.noteLetters = {
+            do: "c", re: "d", mi: "e", fa: "f",
+            sol: "g", la: "a", ti: "b"
+        };
     }
 
     showInstrument(){
@@ -79,27 +88,40 @@ class Piano extends Instrument {
     }
 
     async playRecords(){
-        // play using piano mp3s
-        const soundFiles = [
-            "c3.mp3",
-            "d3.mp3",
-            "e3.mp3",
-            "f3.mp3",
-            "g3.mp3",
-            "a3.mp3",
-            "b3.mp3"
-        ];
         for(let i = 0; i < this.records.length; i++){
+
+            let note = this.records[i];
+
+            // build filename
+            const letter = this.noteLetters[note.note];
+            const filename = `${letter}${note.pitch}.mp3`;
+
             const audio = new Audio(
-                `sounds/${soundFiles[this.records[i].pitch - 1]}`
+                `sounds/${filename}`
             );
 
+            console.log(`Playing ${filename}`)
             await new Promise((resolve, reject) => {
                 audio.addEventListener("ended", resolve);
                 audio.addEventListener("error", reject);
                 audio.play().catch(reject);
             });
         }
+    }
+
+    async play(note, pitch){
+        const filename = `${this.noteLetters[note]}${pitch}.mp3`;
+
+        const audio = new Audio(
+            `sounds/${filename}`
+        );
+
+        console.log(`Playing ${filename}`)
+        await new Promise((resolve, reject) => {
+            audio.addEventListener("ended", resolve);
+            audio.addEventListener("error", reject);
+            audio.play().catch(reject);
+        });
     }
 }
 
