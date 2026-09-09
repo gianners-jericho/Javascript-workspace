@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href = "styles.css">
+    </head>
+    <body>
+        <div class="box" style="justify-content: flex-start; gap: 10px;">
+            <!-- no need for id attributes, removed and replaced with custom color data attribute instead -->
+            <button data-color="red" type="button">Red</button>
+            <button data-color="purple" type="button">Purple</button>
+            <button data-color="green" type="button">Green</button>
+
+            <!-- shape selection buttons -->
+            <button class="shape-btn btn-circle active" data-shape="circle" type="button"></button>
+            <button class="shape-btn btn-square" data-shape="square" type="button"></button>
+            <button class="shape-btn btn-star" data-shape="star" type="button"></button>
+        </div>
+
+
+        <script>
+
+            const config = {
+                default_color: "red",
+                default_shape: "circle",
+                min_diameter: 10,
+                max_diameter: 200,
+                shrink_rate: 1.5,
+                animation_interval_ms: 25,
+            }
+
+            //BUTTONS
+            let currentColor = config.default_color;
+            let currentShape = config.default_shape;
+            const buttonContainer = document.querySelector(".box");
+
+            //EVENT LISTENER FOR BUTTONS CONTAINER
+            buttonContainer.addEventListener("click", (e) => {
+                if (e.target.dataset.color) {
+                    currentColor = e.target.dataset.color; //CHECKS TARGET COLOR OF BUTTON CLICKED AND SET AS CURRENT COLOR
+                }
+                if (e.target.dataset.shape) {
+                    currentShape = e.target.dataset.shape; //CHECKS TARGET SHAPE OF BUTTON CLICKED AND SET AS CURRENT SHAPE
+                    document.querySelectorAll(".shape-btn").forEach(btn => btn.classList.remove("active"));
+                    e.target.classList.add("active");
+                }
+            });
+            
+            //SHAPE IMPLEMENTATION
+            class Shape {
+                constructor(color, diameter){
+                    this.diameter = diameter;
+                    this.color = color;
+                }
+
+                shrink(decrement){
+                    this.diameter -= decrement; 
+                }
+
+                get isAlive(){
+                    return this.diameter > 0;
+                }
+            }
+
+            class Circle extends Shape {
+                constructor(color, diameter){
+                    super(color, diameter);
+                    this.className = "circle";
+                }
+            }
+
+            class Square extends Shape {
+                constructor(color, diameter){
+                    super(color, diameter);
+                    this.className = "square";
+                }
+            }
+
+            class Star extends Shape {
+                constructor(color, diameter){
+                    super(color, diameter);
+                    this.className = "star";
+                }
+            }
+
+            function createShape(type, color, diameter) {
+                if (type === "square") return new Square(color, diameter);
+                if (type === "star") return new Star(color, diameter);
+                return new Circle(color, diameter);
+            }
+
+            //RETURN RANDOM INTEGER BETWEEN RANGE
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            //ON CLICK HANDLER
+            document.onclick = (e) => {
+                if (e.target.closest(".box")) return;
+
+                console.log("clicked");
+                const shapeObj = createShape(currentShape, currentColor, getRandomInt(config.min_diameter, config.max_diameter));
+                const shapeElement = document.createElement("div");
+                shapeElement.className = shapeObj.className;
+                shapeElement.style.left = e.clientX + "px"; 
+                shapeElement.style.top = e.clientY + "px";
+                shapeElement.style.width = shapeObj.diameter + "px";
+                shapeElement.style.height = shapeObj.diameter + "px";
+                shapeElement.style.backgroundColor = shapeObj.color;
+                
+                document.body.appendChild(shapeElement);
+
+                const shrinkInterval = setInterval(() => {
+                    if (shapeObj.isAlive) {
+                        shapeObj.shrink(config.shrink_rate); 
+                        
+                        shapeElement.style.width = shapeObj.diameter + "px";
+                        shapeElement.style.height = shapeObj.diameter + "px";
+                    } else {
+                        clearInterval(shrinkInterval);
+                        shapeElement.remove();  
+                    }
+                }, config.animation_interval_ms); 
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,58 @@
+.box{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  border: 2px dotted rgb(96 139 168);
+  padding: 8px;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.square {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  transform: translate(-50%, -50%) rotate(15deg);
+  pointer-events: none;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.shape-btn {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #333;
+  background-color: #ccc;
+  cursor: pointer;
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.shape-btn.btn-circle {
+  border-radius: 50%;
+}
+
+.shape-btn.btn-square {
+  border-radius: 0;
+}
+
+.shape-btn.btn-star {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  border: none;
+  background-color: #333;
+  transform: rotate(15deg);
+}
+
+.shape-btn.active {
+  background-color: #ffffff;
+}
