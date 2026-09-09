@@ -28,4 +28,4 @@ async function runAsyncAwaitVersion(maxAttempts) {
 
 runAsyncAwaitVersion(10);
 
-//time spent: 20mins
+//time spent: 2hrs

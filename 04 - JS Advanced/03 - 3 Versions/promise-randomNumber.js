@@ -33,4 +33,4 @@ function runPromiseVersion(attempt, maxAttempts) {
 
 runPromiseVersion(1, 10);
 
-//time spent: 20mins
+//time spent: 30mins

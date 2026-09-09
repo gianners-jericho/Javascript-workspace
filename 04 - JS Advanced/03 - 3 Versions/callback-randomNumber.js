@@ -31,4 +31,4 @@ EmitRandomNumber(1, 10, function(finalNum) {
     }
 });
 
-//time spent: 20mins
+//time spent: 30mins
