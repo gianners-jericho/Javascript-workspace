@@ -1,0 +1,80 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Village88 Training Sign-Up</title>
+  </head>
+  <body>
+    <h1>Village88 Training Sign-Up</h1>
+
+    <p>Fill out the form below to apply for Village88's training program.</p>
+
+    <form>
+      <label for="first-name">First Name:</label>
+      <input type="text" id="first-name" name="first-name" />
+      <br /><br />
+
+      <label for="last-name">Last Name:</label>
+      <input type="text" id="last-name" name="last-name" />
+      <br /><br />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" />
+      <br /><br />
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" />
+      <br /><br />
+
+      <label for="birthdate">Birth Date:</label>
+      <input type="date" id="birthdate" name="birthdate" />
+      <br /><br />
+
+      <label for="education">Educational Background:</label>
+      <select id="education" name="education">
+        <option value="">Select one</option>
+        <option value="computer-science">Computer Science</option>
+        <option value="information-technology">Information Technology</option>
+        <option value="computer-engineering">Computer Engineering</option>
+        <option value="other">Other</option>
+      </select>
+      <br /><br />
+
+      <label for="experience">Programming Experience:</label>
+      <br />
+      <textarea id="experience" name="experience" rows="4" cols="40"></textarea>
+      <br /><br />
+
+      <label>Programming Languages:</label>
+      <br />
+      <input type="checkbox" id="python" name="languages" value="python" />
+      <label for="python">Python</label>
+      <br />
+
+      <input
+        type="checkbox"
+        id="javascript"
+        name="languages"
+        value="javascript"
+      />
+      <label for="javascript">JavaScript</label>
+      <br />
+
+      <input type="checkbox" id="java" name="languages" value="java" />
+      <label for="java">Java</label>
+      <br />
+
+      <input type="checkbox" id="php" name="languages" value="php" />
+      <label for="php">PHP</label>
+      <br /><br />
+
+      <label for="reason">Why do you want to join Village88 training?</label>
+      <br />
+      <textarea id="reason" name="reason" rows="5" cols="40"></textarea>
+      <br /><br />
+
+      <input type="submit" value="Submit Application" />
+      <input type="reset" value="Clear Form" />
+    </form>
+  </body>
+</html>
