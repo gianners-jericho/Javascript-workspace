@@ -1,4 +1,4 @@
-eodule.exports = function (){
+module.exports = function (){
     return {
         concat: function(word1, word2) {
             return word1 + " " +  word2;
