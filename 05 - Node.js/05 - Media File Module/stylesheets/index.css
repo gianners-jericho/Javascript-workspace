@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+    margin: 0;
+}
+
+
+/* Navigation */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    border-bottom: 1px solid #333;
+}
+
+.navbar h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #ccc;
+}
+
+
+/* Hero section */
+
+.hero {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 40px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    color: #bbb;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* Buttons */
+
+.hero-buttons {
+    margin-top: 30px;
+}
+
+.button {
+    display: inline-block;
+    background-color: white;
+    color: #111;
+    padding: 12px 24px;
+    margin: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #ddd;
+}
+
+.button.secondary {
+    background-color: #333;
+    color: white;
+}
+
+
+/* Featured movies */
+
+.featured {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.featured h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.movie-images {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.movie-images img {
+    width: 45%;
+    max-width: 450px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.movie-images img:hover {
+    transform: scale(1.03);
+    transition: transform 0.2s ease;
+}
+
+.view-link {
+    display: inline-block;
+    margin-top: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+
+/* Movie suggestion */
+
+.suggestion {
+    text-align: center;
+    padding: 70px 40px;
+    background-color: #1b1b1b;
+}
+
+.suggestion h2 {
+    font-size: 32px;
+}
+
+.suggestion p {
+    color: #bbb;
+    margin-bottom: 25px;
+}
+
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+}
