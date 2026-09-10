@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema - Movies</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        nav {
+            text-align: center;
+        }
+        .movie-list {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 20px auto;
+        }
+        .movie-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 250px;
+        }
+        .movie-card img {
+            max-width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px auto;
+        }
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cinema Movies</h1>
+        <nav>
+            <a href="/movies">Movies</a> | 
+            <a href="/theaters">Theaters</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Now Showing</h2>
+        <div class="movie-list">
+            <div class="movie-card">
+                <img src="/images/movie1.jpg" alt="Movie 1">
+                <h3>Movie 1</h3>
+                <p>Director: Christopher Nolan</p>
+                <p>Genre: Sci-Fi / Thriller</p>
+            </div>
+            <div class="movie-card">
+                <img src="/images/movie2.jpg" alt="Movie 2">
+                <h3>Movie 2</h3>
+                <p>Director: Denis Villeneuve</p>
+                <p>Genre: Adventure / Drama</p>
+            </div>
+            <div class="movie-card">
+                <img src="/images/movie3.jpg" alt="Movie 3">
+                <h3>Movie 3</h3>
+                <p>Director: Quentin Tarantino</p>
+                <p>Genre: Action / Crime</p>
+            </div>
+        </div>
+
+        <section class="form-section">
+            <h2>Add a New Movie</h2>
+            <!-- hits post endpoint in app.js -->
+            <form action="/movies" method="POST">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="director">Director:</label>
+                    <input type="text" id="director" name="director" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
