@@ -1,5 +1,3 @@
-// VERSION 2: promises
-
 function EmitRandomNumber(attempt) {
     return new Promise((resolve) => {
         console.log(`Attempt #${attempt}. EmitRandomNumber is called.`);

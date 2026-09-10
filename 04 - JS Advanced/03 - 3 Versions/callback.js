@@ -1,7 +1,3 @@
-// VERSION 1: pure callbacks
-// setTimeout is JS's built-in delay - it schedules a callback to run once
-// its timer (measured against the system clock/Date under the hood) fires.
-
 function EmitRandomNumber(attempt, onDone) {
     console.log(`Attempt #${attempt}. EmitRandomNumber is called.`);
 

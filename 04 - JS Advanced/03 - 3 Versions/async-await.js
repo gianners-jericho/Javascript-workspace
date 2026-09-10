@@ -1,7 +1,3 @@
-// VERSION 3: async/await
-// async/await is syntactic sugar over promises - "delay" is still just a
-// promise that resolves once setTimeout's timer fires.
-
 function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
