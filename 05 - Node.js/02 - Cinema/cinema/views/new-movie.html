@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Movie - Cinema</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🎬 Cinema Hub</div>
+        <nav>
+            <a href="/movies">Movies</a>
+            <a href="/theaters">Theaters</a>
+            <a href="/movies/new" class="active">Add Movie</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="form-card">
+            <h1>Add a New Movie</h1>
+            <p class="subtitle">Submit movie information to add to the server roster.</p>
+
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="title">Movie Title</label>
+                    <input type="text" id="title" name="title" placeholder="e.g. Demon Slayer" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="genre">Genre</label>
+                    <select id="genre" name="genre">
+                        <option value="anime">Anime</option>
+                        <option value="action">Action</option>
+                        <option value="drama">Drama</option>
+                        <option value="comedy">Comedy</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Short Synopsis</label>
+                    <textarea id="description" name="description" rows="4" placeholder="Brief movie description..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Add Movie</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
