@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <style>
+            main {
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+            .keyvalue {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .keyvalue > p {
+                font-weight: 600;
+            }
+
+            .ticket {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                padding: 4rem;
+                border-radius: 16px;
+                border: 1px solid black;
+                min-width: 360px;
+
+                background-color: salmon;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Welcome!</h1>
+            <p>We're giving away a free <span>50% Off</span> discount voucher for our first 10 customers.</p>
+            
+            <div class="ticket">
+                <p>Sorry, there are no more tickets, or you already claimed one.</p>
+                <div>
+                    <a href="/"><button>Claim Again</button></a>
+                    <a href="/reset"><button>Reset</button></a>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

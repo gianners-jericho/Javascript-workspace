@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <style>
+            main{
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            form {
+                margin: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            input, label, select, textarea {
+                margin-bottom: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Welcome!</h1>
+            <p>We're giving away a free <span>50% Off</span> discount voucher for our first 10 customers.</p>
+            <form action="/ticket" method="POST">
+                <label for="name">Kindly type your name</label>
+                <input name="name" />
+
+                <button type="submit">Submit</button>
+            </form>
+        </main>
+    </body>
+</html>
