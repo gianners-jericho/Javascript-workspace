@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Counter</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>Visitor Counter</h1>
+    </header>
+
+    <main class="container">
+        <h2>You have visited this page <%= visitorCount %> <%= visitorCount === 1 ? 'time' : 'times' %></h2>
+
+        <div class="quote-box">
+            <p><strong>Quote:</strong></p>
+            <p><%= quote %></p>
+        </div>
+
+        <form action="/repeat" method="GET">
+            <button type="submit">Repeat</button>
+        </form>
+
+        <div class="button-group">
+            <form action="/reset" method="GET">
+                <button type="submit">Reset</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
