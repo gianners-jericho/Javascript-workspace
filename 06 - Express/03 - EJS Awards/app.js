@@ -73,3 +73,5 @@ app.get('/awards/palme', (req, res) => {
 app.listen(PORT, () => {
     console.log(`EJS Awards server running on http://localhost:${PORT}`);
 });
+
+//time spent: 15mins
