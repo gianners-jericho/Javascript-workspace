@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= award.name %></title>
+
+    <link rel="stylesheet" href="/styles/awards.css">
+</head>
+
+<body>
+
+    <div class="details-container">
+
+        <h1><%= award.name %></h1>
+
+        <img src="<%= award.image %>" alt="<%= award.name %>">
+
+        <p class="details-description">
+            <%= award.description %>
+        </p>
+
+        <div class="winners-section">
+
+            <h2>Notable Winners</h2>
+
+            <ul>
+                <% for (const winner of award.winners) { %>
+                    <li><%= winner %></li>
+                <% } %>
+            </ul>
+
+        </div>
+
+        <a class="back-button" href="/awards">
+            Back to Awards
+        </a>
+
+    </div>
+
+</body>
+</html>
