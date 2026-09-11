@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Page</title>
+</head>
+<body>
+    <h1>You are visitor #<%= views %></h1>
+
+    <% if (quote) { %>
+    <h2><%= quote %></h2>
+
+    <% } %>
+
+    <form action="/repeat" method="POST">
+        <button type="submit">Repeat</button>
+    </form>
+
+    <form action="/reset" method="POST">
+        <button type="submit">Reset</button>
+    </form>
+</body>
+</html>
