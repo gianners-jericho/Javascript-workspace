@@ -11,18 +11,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-app.use(session({
-    saveUninitialized: true,
-    resave: false,
-    secret: 'a strong secret'
-}))
-
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.get('/', (req, res) => {
-
-
     res.render('index');
 });
 
