@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Directory</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        .controls { margin-bottom: 20px; }
+        button { padding: 8px 16px; margin-right: 10px; cursor: pointer; }
+        
+        /* Fixed-height scrollable container for the bonus */
+        #scroll-container {
+            height: 400px;
+            overflow-y: auto;
+            border: 2px solid #333;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .data-card { 
+            border: 1px solid #ccc; 
+            padding: 12px; 
+            margin-bottom: 10px; 
+            border-radius: 6px; 
+            background-color: #f9f9f9;
+        }
+        #status-msg { font-weight: bold; color: #555; }
+    </style>
+</head>
+<body>
+
+    <h1>Cryptocurrency & Exchange Directory</h1>
+
+    <div class="controls">
+        <button onclick="switchCategory('exchanges')">Exchanges</button>
+        <button onclick="switchCategory('platforms')">Finance Platforms</button>
+    </div>
+
+    <!-- Scrollable Box -->
+    <div id="scroll-container">
+        <div id="content-list"></div>
+        <p id="status-msg">Loading initial items...</p>
+    </div>
+
+    <script>
+        let currentCategory = 'exchanges';
+        let currentPage = 1;
+        let isLoading = false;
+        let hasMore = true;
+
+        const scrollContainer = document.getElementById('scroll-container');
+        const listContainer = document.getElementById('content-list');
+        const statusMsg = document.getElementById('status-msg');
+
+        async function fetchMoreData() {
+            if (isLoading || !hasMore) return;
+            isLoading = true;
+            statusMsg.innerText = 'Fetching next 10 items...';
+
+            try {
+                const res = await fetch(`/api/data?type=${currentCategory}&page=${currentPage}`);
+                const result = await res.json();
+
+                if (!result.success) {
+                    statusMsg.innerText = result.error || 'Rate limit reached. Pause a moment before scrolling.';
+                    isLoading = false;
+                    return;
+                }
+
+                if (result.data.length === 0) {
+                    hasMore = false;
+                    statusMsg.innerText = 'No more items available.';
+                    isLoading = false;
+                    return;
+                }
+
+                // Append new data to DOM without clearing previous items
+                result.data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'data-card';
+                    div.innerHTML = `
+                        <h3>${item.name || item.id}</h3>
+                        <p>${item.description || item.shortname || 'No description available'}</p>
+                        ${item.url ? `<a href="${item.url}" target="_blank">Visit Site</a>` : ''}
+                    `;
+                    listContainer.appendChild(div);
+                });
+
+                currentPage++;
+                statusMsg.innerText = 'Scroll down for more...';
+            } catch (err) {
+                statusMsg.innerText = 'Error loading items.';
+            } finally {
+                isLoading = false;
+            }
+        }
+
+        // Detect when user scrolls near the bottom of the container
+        scrollContainer.addEventListener('scroll', () => {
+            const nearBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 20;
+            if (nearBottom) {
+                fetchMoreData();
+            }
+        });
+
+        function switchCategory(category) {
+            currentCategory = category;
+            currentPage = 1;
+            hasMore = true;
+            listContainer.innerHTML = '';
+            fetchMoreData();
+        }
+
+        // Initial Load
+        fetchMoreData();
+    </script>
+</body>
+</html>
