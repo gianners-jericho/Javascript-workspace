@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupon</title>
+</head>
+
+<body>
+
+    <h1>Welcome Customer!</h1>
+
+    <% if (!submitted) { %>
+
+        <p>
+            We're giving away free coupons as a token of appreciation
+            for the first <%= chances %> customer(s)
+        </p>
+
+        <p>Kindly type your name</p>
+
+        <form action="/submit" method="post">
+            <input type="text" name="username" id="username" required>
+            <button type="submit">Submit</button>
+        </form>
+
+    <% } else { %>
+
+        <p>Thank you for participating!</p>
+
+        <p>Your redemption code is:</p>
+
+        <h2><%= code %></h2>
+
+        <form action="/redeem-again" method="post">
+            <button type="submit">Redeem Again</button>
+        </form>
+
+        <form action="/reset" method="post">
+            <button type="submit">Reset</button>
+        </form>
+
+    <% } %>
+
+</body>
+</html>
