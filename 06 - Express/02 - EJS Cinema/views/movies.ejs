@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured Movies - Cinema</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🎬 Cinema Hub</div>
+        <nav>
+            <a href="/" class="active">Home</a>
+            <a href="/movies">Movies</a>
+            <a href="/theaters">Theaters</a>
+            <a href="/movies/new">Add Movie</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Favorite Movies</h1>
+        <p class="subtitle">Hand-picked collection of top cinematic experiences.</p>
+
+        <div class="grid-container">
+            <% movies.forEach(movie => { %>
+                <div class="card">
+                    <img src="<%= movie.image %>" alt="<%= movie.title %> Poster">
+                    <div class="card-info">
+                        <h3><%= movie.title %></h3>
+                        <p><%= movie.category %> • <%= movie.description %></p>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+</body>
+</html>
