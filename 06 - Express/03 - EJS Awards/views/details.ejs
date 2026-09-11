@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= award.title %> - Award Details</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">🏆 Achievements Hub</div>
+        <nav>
+            <a href="/awards">All Awards</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Back Link -->
+        <a href="/awards" class="back-link">&larr; Back to Awards</a>
+
+        <!-- Hero Card Section -->
+        <div class="details-card">
+            <img src="<%= award.image %>" alt="<%= award.title %> Image" class="details-image">
+            
+            <div class="details-content">
+                <span class="badge"><%= award.year %></span>
+                <h1><%= award.title %></h1>
+                <p class="organization">Presented by: <strong><%= award.organization %></strong></p>
+                <p class="description"><%= award.description %></p>
+
+                <hr>
+
+                <!-- Array Iteration Section -->
+                <h2>Key Categories & Highlights</h2>
+                <ul class="categories-list">
+                    <% award.keyCategories.forEach(category => { %>
+                        <li><%= category %></li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
