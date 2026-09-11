@@ -8,13 +8,13 @@ const PORT = 8000;
 //global middleware to parse FORM submissions (must always be at the top)
 app.use(express.urlencoded({ extended: true }));
 
+//global middleware to set routes for static files to serve them
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 /*other middleware options:
 
 parse incoming JSON
 app.use(express.json());
-
-global middleware to set routes for static files to serve them (saves us from writing app.get routes for every image or handling every image route in createServer callback in pure node)
-app.use(express.static(path.join(__dirname, "public")));
 */
 
 //SERVE HTML FILES
@@ -27,7 +27,7 @@ app.get("/movies/new", function(request, response){
 
 //HANDLE FORM SUBMIT
 
-app.post("/movies/new", function(request, response){
+app.post(["/movies/new", "/movies"], function(request, response){
 
     //parse form data
     const { title, director } = request.body;
