@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>AWARDS</title>
+    </head>
+    <body>
+        <% %>
+        <h2>Details about <%= award.name %></h2>
+
+        <img src="/images/award (<%= award.image %>).png" alt="AWS Academy Graduate Cloud Foundations">
+
+        <p>Date: <%= award.date %></p>
+        <p>Awarded by: <%= award.awarded_by %></p>
+        <p>Skills:</p>
+        <ul>
+            <% for (let i = 0; i < award.skills.length; i++) { %>
+                <li><%= award.skills[i] %></li>
+            <% } %>
+        </ul>
+    </body>
+</html>
