@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platforms & Exchanges</title>
+<style>
+    nav {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    nav .links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .list-container, .controls {
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .list-scroll {
+      max-height: 250px;
+      height: 250px;
+      overflow: scroll;
+      border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Market Board</div>
+  <div class="links">
+    <a href="/exchanges">Exchanges</a>
+    <a href="#">Asset Platforms</a>
+  </div>
+</nav>
+
+<main>
+  <div class="list-header">
+    <h1 id="listTitle">Asset Platforms</h1>
+  </div>
+
+  <div class="list-container">
+    <div class="list-scroll" id="listScroll">
+      <div id="listBody"><!-- items injected here --></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <span id="listRange">Showing 1–10 of 100</span>
+    <div>
+      <button id="btnPrev" onclick="previous10()">Previous 10</button>
+      <button id="btnTop" class="primary" onclick="load100()">Top 100</button>
+      <button id="btnNext" onclick="next10()">Next 10</button>
+    </div>
+  </div>
+</main>
+
+<script>
+
+    let state = {
+      view: "exchange",
+      per_page: 10,
+      page: 1,
+      mode: "top10",
+      fetchedPages: 1
+    };
+
+    const body = document.getElementById("listBody");
+    const indicator = document.getElementById("listRange");
+    const dataSets = <%- JSON.stringify(dataSets) %>;
+
+    let dataArr = [];
+    for(let i = 0; i < dataSets.exchanges.length; i++){
+      dataArr.push({id: i, name: dataSets.exchanges[i]});
+    }
+
+    async function previous10(){
+      if(state.page > 1){
+        state.page--;
+        render();
+      }
+    };
+
+
+    async function next10(){
+      // if page not fetched yet, fetch, otherwise get from array
+      if(state.fetchedPages < state.page + 1){
+        const result = await fetch(`/api/exchanges?page=${state.page + 1}&per_page=10`);
+        const data = await result.json();
+        if( data ){
+          const currentLength = dataArr.length ?? 0;
+          for(let i = 0; i < dataSets.exchanges.length; i++){
+            dataArr.push({id: i + currentLength, name: data.data[i]});
+          }
+          state.fetchedPages++;
+        };
+      }
+
+      state.page++;
+      render();
+    }
+
+    async function load100(){
+      const result = await fetch(`/api/exchanges?page=1&per_page=100`);
+      const data = await result.json();
+      if( data ){
+        const replacing = []
+        for(let i = 0; i < data.data.length; i++){
+          replacing.push({id: i, name: data.data[i]});
+        }
+        dataArr = [];
+        dataArr = replacing;
+
+        const totalFetched = Math.ceil(data.data.length / state.per_page)
+        state.fetchedPages = totalFetched;
+        state.mode = "top100";
+        state.per_page = 100;
+      };
+
+      state.page = 1;
+      render()
+    }
+
+    function render(){
+      let elements = "";
+      let start = (state.page - 1) * state.per_page;
+      let end = start + state.per_page; 
+      let view = dataArr.slice(start, end)
+      for(let i = 0; i < view.length; i++){
+        elements += `<div>${view[i].id + 1} ${view[i].name}</div>`
+      }
+      if(state.mode="top100"){
+        body.innerHTML = "";
+        body.innerHTML += elements;
+      }
+      else {
+        body.innerHTML = elements;
+      }
+      listRange.innerText = `Showing ${start + 1}-${end} of 100`;
+    }
+
+    render();
+</script>
+
+</body>
+</html>
