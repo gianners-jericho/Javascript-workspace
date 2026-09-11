@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    
+    <h1>Feedback Form</h1>
+
+    <form action="/submit" method="POST">
+      <label for="name">Your Name (Optional):</label>
+      <input type="text" id="name" name="name" />
+
+      <br /><br />
+
+      <label for="course">Course Title:</label>
+      <select id="course" name="course" required>
+        <option value="">Select a course</option>
+        <option value="web-development">Web Development</option>
+        <option value="database-systems">Database Systems</option>
+        <option value="software-engineering">Software Engineering</option>
+        <option value="machine-learning">Machine Learning</option>
+        <option value="data-structures">Data Structures</option>
+      </select>
+
+      <br /><br />
+
+      <label for="score">Score:</label>
+      <select id="score" name="score" required>
+        <option value="">Select a score</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+
+      <br /><br />
+
+      <label for="reason">Reason:</label>
+      <br />
+      <textarea
+        id="reason"
+        name="reason"
+        rows="5"
+        cols="40"
+        required
+      ></textarea>
+
+      <br /><br />
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
