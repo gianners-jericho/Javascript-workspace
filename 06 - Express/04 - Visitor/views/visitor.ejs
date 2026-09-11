@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <style>
+            main {
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>You are Visitor #<%= count %></h1>
+            <p>
+                <%= quote %>
+                <% if (skipped) { %>
+                    <span>(repeated)</span>
+                <% } %>
+            </p>
+
+            <div>
+                <a href="/reset"><button id="reset">Reset</button></a>
+                <a href="/repeat"><button id="repeat">Repeat</button></a>
+            </div>
+        </main>
+    </body>
+</html>
