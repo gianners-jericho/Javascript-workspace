@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <style>
+            main{
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            form {
+                margin: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            input, label, select, textarea {
+                margin-bottom: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Feedback Form</h1>
+            
+            <form action="/results" method="POST">
+                <label for="name">Your Name (optional)</label>
+                <input name="name" />
+
+                <label for="course">Course</label>
+                <select name="course">
+                    <option value="Javascript" selected>Javascript</value>
+                    <option value="PHP">PHP</value>
+                </select>
+
+                <label for="rating">Rating</label>
+                <input name="rating" type="number" max="10" min="1"/>
+
+                <label for="reason">Reason</label>
+                <textarea name="reason"></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <div>
+            </div>
+        </main>
+    </body>
+</html>

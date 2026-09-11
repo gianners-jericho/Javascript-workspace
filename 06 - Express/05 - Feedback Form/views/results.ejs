@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <style>
+            main {
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+            .keyvalue {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .keyvalue > p {
+                font-weight: 600;
+            }
+
+            .answers {
+                padding: 4rem;
+                border-radius: 16px;
+                border: 1px solid black;
+                min-width: 360px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            
+            <h1>Submitted Entry</h1>
+            <div class="answers">
+                <div class="keyvalue">
+                    <p>Name:</p>
+                    <p><%= name %></p>
+                </div>
+                <div class="keyvalue">
+                    <p>Course:</p>
+                    <p><%= course %></p>
+                </div>
+                <div class="keyvalue">
+                    <p>Rating:</p>
+                    <p><%= rating %></p>
+                </div>
+                <div class="keyvalue">
+                    <p>Reason:</p>
+                    <p><%= reason %></p>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
