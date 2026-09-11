@@ -4,7 +4,6 @@ const session = require("express-session");
 const app = express();
 
 app.set("view engine", "ejs");
-app.use(express.static("public")); // Just in case I need to use css 
 
 app.use(session({
     secret: 'altitudeiq',
