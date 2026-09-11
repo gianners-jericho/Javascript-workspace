@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submitted Entry</title>
+</head>
+<body>
+    <div class="card">
+        <h1>Submitted Entry</h1>
+
+        <p><strong>Your Name (optional):</strong> <%= feedback.name || 'Anonymous' %></p>
+        <p><strong>Course Title:</strong> <%= feedback.course %></p>
+        <p><strong>Given Score (1-10):</strong> <%= feedback.score %>pts</p>
+        <p><strong>Reason:</strong></p>
+        <p><%= feedback.reason %></p>
+
+        <a href="/"><button>Return</button></a>
+    </div>
+</body>
+</html>

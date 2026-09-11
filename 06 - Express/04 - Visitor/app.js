@@ -41,7 +41,7 @@ app.post('/repeat', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`EJS Awards server running on http://localhost:${PORT}`);
+    console.log(`Visitor Server running on http://localhost:${PORT}`);
 });
 
 //time spent: 15mins
