@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Awards - Hall of Fame</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>Cinema Awards</h1>
+        <nav>
+            <a href="/awards">Awards Gallery</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Now Showing</h2>
+        <div class="awards-list">
+            <% if (typeof awards !== 'undefined' && awards.length > 0) { %>
+                <% awards.forEach(function(award) { %>
+                    <% 
+                        const awardRoute = award.route || ('/awards/' + award.title.toLowerCase().replace(/\s+award$/, '').replace(/\s+/g, '-'));
+                    %>
+                    <div class="award-card">
+                        <a href="<%= awardRoute %>">
+                            <img src="<%= award.image_url || award.image %>" alt="<%= award.title %>">
+                        </a>
+                        <h3><%= award.title %></h3>
+                        <p>Organization: <%= award.organization %></p>
+                        <p>Year: <%= award.year %></p>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Details</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>Cinema Awards</h1>
+        <nav>
+            <a href="/awards">Awards Gallery</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="detail-container">
+            <h2><%= title %></h2>
+
+            <img src="<%= image_url %>" alt="<%= title %>">
+
+            <p>Organization: <%= organization %></p>
+            <p>Year: <%= year %></p>
+            <p><%= description %></p>
+
+            <% if (typeof highlights !== 'undefined' && highlights.length > 0) { %>
+                <div class="highlights-section">
+                    <h3>Highlights</h3>
+                    <ul>
+                        <% highlights.forEach(function(item) { %>
+                            <li><%= item %></li>
+                        <% }); %>
+                    </ul>
+                </div>
+            <% } %>
+        </div>
+    </main>
+</body>
+</html>

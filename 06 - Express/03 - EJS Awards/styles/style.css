@@ -1,0 +1,53 @@
+body {
+    text-align: center;
+}
+
+nav {
+    text-align: center;
+}
+
+/* Awards Overview */
+.awards-list {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 20px auto;
+}
+
+.award-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 250px;
+}
+
+.award-card img {
+    max-width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Award Details */
+.detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    width: 500px;
+}
+
+.detail-container img {
+    max-width: 250px;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+}
+
+.highlights-section {
+    margin: 15px auto;
+    text-align: left;
+}
