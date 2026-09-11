@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Coupons</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome Customer!</h1>
+        <p>
+            We're giving away <strong>free coupons</strong> as token of appreciation 
+            <% if (couponsLeft > 0) { %>
+                for first <%= couponsLeft %> customer(s)
+            <% } %>
+        </p>
+
+        <% if (!showResult) { %>
+            <!-- STATE 1: Initial Form -->
+            <form action="/claim" method="POST">
+                <label for="name">Kindly type your name:</label><br><br>
+                <input type="text" id="name" name="name" required><br><br>
+                <button type="submit" class="btn-green">Submit</button>
+            </form>
+
+        <% } else if (couponsLeft > 0) { %>
+            <!-- STATE 2: Coupon Claimed (Count > 0) -->
+            <div class="ticket-box">
+                <h3>50% Discount</h3>
+                <h1 class="code"><%= claimedCoupon %></h1>
+                <div class="button-group">
+                    <form action="/reset" method="POST" style="display:inline;">
+                        <button type="submit" class="btn-red">Reset count</button>
+                    </form>
+                    <form action="/claim-again" method="POST" style="display:inline;">
+                        <button type="submit" class="btn-green">Claim again</button>
+                    </form>
+                </div>
+            </div>
+
+        <% } else { %>
+            <!-- STATE 3: Unavailable (Count === 0) -->
+            <div class="ticket-box">
+                <h3>Sorry!</h3>
+                <h1 class="code">Unavailable</h1>
+                <div class="button-group">
+                    <form action="/reset" method="POST" style="display:inline;">
+                        <button type="submit" class="btn-red">Reset count</button>
+                    </form>
+                    <form action="/claim-again" method="POST" style="display:inline;">
+                        <button type="submit" class="btn-green">Claim again</button>
+                    </form>
+                </div>
+            </div>
+        <% } %>
+
+    </div>
+
+</body>
+</html>
