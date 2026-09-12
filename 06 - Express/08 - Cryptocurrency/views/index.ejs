@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-endpoint="/api/crypto">
+
+    <header>
+        <div>
+            <h1>Cryptocurrency</h1>
+            <a href="/platforms">Finance Platforms</a>
+            <a href="/exchanges">Exchanges</a>
+        </div>
+    </header>
+
+    <div>
+        <!-- First 10 items are rendered here by the server on page load.
+             After that, script.js updates this box without reloading the page. -->
+        <div id="display-box" class="display-box">
+            <% items.forEach(function(item) { %>
+                <div><%= item.name %></div>
+            <% }); %>
+        </div>
+
+        <button id="previous-button" type="button">Previous 10</button>
+        <button id="top-button" type="button">Top 100</button>
+        <button id="next-button" type="button">Next 10</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

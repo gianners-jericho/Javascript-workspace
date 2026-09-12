@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchanges</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-endpoint="/api/exchanges">
+
+    <header>
+        <div>
+            <h1>Exchanges</h1>
+            <a href="/platforms">Finance Platforms</a>
+            <a href="/">Cryptocurrency</a>
+        </div>
+    </header>
+
+    <div>
+        <div id="display-box" class="display-box">
+            <% items.forEach(function(item) { %>
+                <div><%= item.name %></div>
+            <% }); %>
+        </div>
+
+        <button id="previous-button" type="button">Previous 10</button>
+        <button id="top-button" type="button">Top 100</button>
+        <button id="next-button" type="button">Next 10</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
