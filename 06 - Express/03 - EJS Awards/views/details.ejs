@@ -3,10 +3,9 @@
         <title>AWARDS</title>
     </head>
     <body>
-        <% %>
         <h2>Details about <%= award.name %></h2>
 
-        <img src="/images/award (<%= award.image %>).png" alt="AWS Academy Graduate Cloud Foundations">
+        <img src="/images/award (<%= award.image %>).png" alt="<%= award.name %>">
 
         <p>Date: <%= award.date %></p>
         <p>Awarded by: <%= award.awarded_by %></p>

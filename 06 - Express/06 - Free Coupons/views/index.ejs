@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Free Coupons</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 10vh;
+            font-size: x-large;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome Customer!</h1>
+
+    <p>We're giving away <b>free coupons</b> as token of appreciation</p>
+
+    <% if (limit > 0) { %>
+        <p>for first <%= limit %> customer(s)</p>
+    <% } %>
+
+    <form action="/claim" method="post">
+        <label for="name">Kindly type your name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

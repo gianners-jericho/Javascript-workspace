@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quote Page</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 20%;
+        }
+    </style>
+</head>
+<body>
+        <h1>You are Visitor #<%= visits %></h1>
+
+        <!-- ODD or EVEN -->
+        <% if (visits % 2 === 1) { %>
+            <h3>"Beat the odds"</h3>
+        <% } else { %>
+            <h3>"Even flowers need rain"</h3>
+        <% } %>
+
+        <form action="/repeat">
+            <input type="submit" value="Repeat">
+        </form>
+
+        <form action="/reset">
+            <input type="submit" value="Reset">
+        </form>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Free Coupons</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 10vh;
+            font-size: x-large;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome Customer!</h1>
+
+    <p>We're giving away <b>free coupons</b> as token of appreciation</p>
+
+    <% if (code) { %>
+        <h3>50% Discount</h3>
+        <h2><%= code %></h2>
+    <% } else { %>
+        <h3>Sorry!</h3>
+        <h2>Unavailable</h2>
+    <% } %>
+
+    <div>
+        <form action="/reset">
+            <input type="submit" value="Reset count">
+        </form>
+
+        <form action="/claim" method="post">
+            <input type="submit" value="Claim again">
+        </form>
+    </div>
+</body>
+</html>
