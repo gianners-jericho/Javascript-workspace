@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Word Guess Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Section 1: Guess Word */
+    .guess-section {
+      width: 100%;
+      background: #ffffff;
+      border: 2px solid #333;
+      border-radius: 8px;
+      padding: 30px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .guess-word {
+      font-size: 2.5em;
+      letter-spacing: 6px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    /* Section 2: Scores */
+
+    .score-container {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .score-box {
+      background: #e8e8e8;
+      padding: 8px 12px;
+      border-radius: 6px;
+      max-width: 80%;
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Section 3: Chat Box */
+    .chat-box {
+      width: 100%;
+      height: 300px;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    .chat-message {
+      background: #e8e8e8;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      max-width: 80%;
+      display: flex;
+      gap: 12px;
+    }
+
+    .chat-message .chat-sender {
+        font-weight: 600;
+    }
+
+    /* Section 3: Chat Input */
+    .chat-input-section {
+      width: 100%;
+    }
+
+    .chat-input-section form {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input-section input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    .chat-input-section button {
+      padding: 10px 20px;
+      border: none;
+      background: #333;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    .chat-input-section button:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Section 1: Guess Word -->
+    <div class="guess-section">
+      <div class="guess-word" id="guess-word">guess word</div>
+    </div>
+
+    <!-- Section 2: Scores -->
+    <div class="score-container" id="score-container">
+    </div>
+
+    <!-- Section 3: Past Chats -->
+    <div class="chat-box" id="chat-box">
+    </div>
+
+    <!-- Section 4: Chat Input -->
+    <div class="chat-input-section">
+      <form id="message-form">
+        <input type="text" name="message" placeholder="Type your message..." id="message" required>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
+  </div>
+</body>
+<script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+<script>
+
+    let chats = [];
+    let scores = [];
+
+    const elChatbox = document.getElementById('chat-box');
+    const elWord = document.getElementById('guess-word');
+    const elScores = document.getElementById('score-container');
+    const elMessage = document.getElementById('message');
+    const elMessageForm = document.getElementById('message-form');
+
+    function newChat(name, content){
+        const modifiedName = name == playerName ? "You" : name;
+        return `<div class="chat-message">
+                <span class="chat-sender">${modifiedName}</span><span class="chat-content">${content}</span>
+            </div>`
+    }
+
+    function newScore(name, score){
+        return `<div class="score-box">
+                <span class="score-name">${name}</span><span class="score-value">${score}</span>
+            </div>`
+    }
+
+    function init(data){
+        chats = data.chats;
+        scores = data.scores;
+        word = data.word;
+
+        // render chatbox
+        let chatboxHtml = "";
+        for(let i = 0; i < chats.length; i++){
+            chatboxHtml += newChat(chats[i].name, chats[i].content)
+        }
+        elChatbox.innerHTML = chatboxHtml;
+
+        // render guess word
+        elWord.innerText = word;
+
+        // render scores 
+        let scoresHtml = "";
+        for(let i = 0; i < scores.length; i++){
+            scoresHtml += newScore(scores[i].name, scores[i].score)
+        };
+        elScores.innerHTML = scoresHtml;
+    }
+
+    function renderChat(data){
+        chats.push(data);
+        let html = elChatbox.innerHTML;
+        html += newChat(data.name, data.content)
+        elChatbox.innerHTML = html;
+        elChatbox.scrollTop = elChatbox.scrollHeight;
+    }
+
+    function renderScore(data){
+        scores = data;
+        let html = "";
+        for(let i = 0; i < scores.length; i++){
+            html += newScore(scores[i].name, scores[i].score)
+        };
+        elScores.innerHTML = html;
+    }
+
+    function renderWord(data){
+        elWord.innerText = data;
+    }
+
+    // Socket Connection
+    let playerName = "";
+    while (!playerName) {
+        playerName = (prompt("Enter player name:") || "").trim();
+    }
+
+    const socket = io();
+    socket.on("game:init", function(data){
+        init(data);
+    })
+
+    socket.on("chat:update", function(data){
+        renderChat(data);
+    })
+
+    socket.on("scores:update", function(data){
+        renderScore(data.scores);
+    })
+
+    socket.on("word:update", function(data){
+        renderWord(data.word)
+    })
+
+    socket.emit("player:start", {name: playerName});
+
+    elMessageForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        if(elMessage.value){
+            socket.emit("chat:create", {name: playerName, content: elMessage.value, timestamp: Date.now()});
+            elMessage.value = "";
+        }
+    })
+
+</script>
+</html>
