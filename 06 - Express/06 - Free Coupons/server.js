@@ -22,7 +22,7 @@ const total_coupons = 10;
 app.get("/", function(request, response) {
 
     //Start the count at 0
-    if (!request.session.claimed) {
+    if (request.session.claimed === undefined) {
         request.session.claimed = 0;
     }
 
@@ -38,7 +38,7 @@ app.post("/claim", function(request, response) {
     }
 
     //Start the count at 0
-    if (!request.session.claimed) {
+    if (request.session.claimed === un) {
         request.session.claimed = 0;
     }
 

@@ -17,7 +17,7 @@ app.use(session({
 app.get("/", function(request, response) {
 
     //check if first time
-    if (!request.session.visits) {
+    if (request.session.visits === undefined) {
         request.session.visits = 0;
     }
 
@@ -39,7 +39,7 @@ app.get("/reset", function(request, response) {
 app.get("/repeat", function(request, response) {
 
     //check if first time
-    if (!request.session.visits) {
+    if (request.session.visits === undefined) {
         response.redirect("/");
         return;
     }

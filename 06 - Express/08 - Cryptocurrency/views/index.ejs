@@ -1,0 +1,168 @@
+<html>
+<head>
+    <title>Express with AJAX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header a {
+            color: blue;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+
+        .header a.active {
+            font-weight: bold;
+        }
+
+        #results {
+            list-style: none;
+            padding: 15px;
+            border: 2px solid black;
+            min-height: 320px;
+            text-align: center;
+        }
+
+        #results li {
+            padding: 4px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 15px;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #prevBtn, #nextBtn {
+            background: blue;
+        }
+
+        #listBtn {
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Cryptocurrency</h1>
+        <div>
+            <a href="/platforms" class="source" data-source="platforms">Finance Platforms</a>
+            <a href="/exchanges" class="source" data-source="exchanges">Exchanges</a>
+        </div>
+    </div>
+
+    <div>
+        <ul id="results"></ul>
+    </div>
+
+    <div class="buttons">
+        <button id="prevBtn">Previous 10</button>
+        <button id="listBtn">List Top 100</button>
+        <button id="nextBtn">Next 10</button>
+    </div>
+
+    <script>
+        const results = document.getElementById('results');
+        const prevBtn = document.getElementById('prevBtn');
+        const listBtn = document.getElementById('listBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const links = document.querySelectorAll('.source');
+
+        let currentSource = '';
+        let currentPage = 1;
+        let showTop = false;
+
+        //put the names inside the box/result div
+        function showData(data) {
+            results.replaceChildren();
+
+            for (let i = 0; i < data.length; i++) {
+                const li = document.createElement('li');
+                li.innerHTML = data[i].name;
+                results.appendChild(li);
+            }
+        }
+
+        //Turns the buttons on and off
+        function updateButtons(dataCount) {
+            prevBtn.disabled = showTop || currentPage === 1;
+            nextBtn.disabled = showTop || dataCount < 10;
+            listBtn.disabled = currentSource === '';
+        }
+
+        //LOAD ten data
+        async function loadTop10(source, page) {
+            try {
+                const response = await fetch('/' + source + '?page=' + page);
+                const data = await response.json();
+
+                currentSource = source;
+                currentPage = page;
+                shotTop = false;
+
+                showData(data);
+                updateButtons(data.length);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        // Gets 100 data
+        async function loadTop() {
+            results.replaceChildren();
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
+            listBtn.disabled = true;
+            try {
+                const response = await fetch('/' + currentSource + '/top');
+                const data = await response.json();
+
+                showTop = true;
+
+                showData(data);
+                updateButtons(data.length);
+            } catch (error) {
+                console.log(error);
+                showTop = false;
+                updateButtons(0);
+            }
+        }
+
+        //CLICKS
+        for(let i = 0; i < links.length; i++) {
+            const link = links[i];
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                loadTop10(link.dataset.source, 1);
+            })
+        }
+
+        prevBtn.addEventListener('click', function() {
+            loadTop10(currentSource, currentPage - 1);
+        })
+
+        nextBtn.addEventListener('click', function() {
+            loadTop10(currentSource, currentPage + 1);
+        })
+        listBtn.addEventListener('click', loadTop);
+    </script>
+</body>
+</html>
