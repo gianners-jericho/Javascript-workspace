@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Recitation</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <button id="raise-hand-btn">Raise Hand</button>
+
+    <div id="log"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const log = document.getElementById("log");
+        const raiseHandButton = document.getElementById("raise-hand-btn");
+
+        // Adds one line to the bottom of the log
+        function addLine(text) {
+            const line = document.createElement("div");
+            line.innerHTML = text;
+            log.appendChild(line);
+        }
+
+        // The server sends this same event for all three cases: "is present.", "left.", and "raised hand!".
+        socket.on("notification", function (text) {
+            addLine(text);
+        });
+
+        raiseHandBtn.addEventListener("click", function () {
+            socket.emit("raise hand");
+        });
+    </script>
+</body>
+</html>

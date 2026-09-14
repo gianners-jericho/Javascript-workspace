@@ -1,0 +1,24 @@
+body {
+    font-family: sans-serif;
+    max-width: 700px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+#raise-hand-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+#log {
+    text-align: left;
+}
+
+#log div {
+    margin-bottom: 4px;
+}
