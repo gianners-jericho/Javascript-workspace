@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback</title>
+</head>
+<body>
+
+    <h1>Submitted Entry</h1>
+
+    <% for (let i = 0; i < feedback.length; i++) { %>
+
+        <h2>Entry <%= i + 1 %></h2>
+
+        <p>Name: <%= feedback[i].name %></p>
+        <p>Course: <%= feedback[i].course %></p>
+        <p>Score: <%= feedback[i].score %></p>
+        <p>Reason: <%= feedback[i].reason %></p>
+
+        <hr>
+
+    <% } %>
+
+    <a href="/">
+        <button type="button">Return</button>
+    </a>
+
+</body>
+</html>
