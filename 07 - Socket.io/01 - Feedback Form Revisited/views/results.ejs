@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <style>
+            main {
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+            .keyvalue {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .keyvalue > p {
+                font-weight: 600;
+            }
+
+            .answers {
+                padding: 4rem;
+                border-radius: 16px;
+                border: 1px solid black;
+                min-width: 360px;
+            }
+
+            #dataDiv {
+                display: none;
+                background-color: yellowgreen;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Submitted Entry</h1>
+            <div id="dataDiv">
+                <p>You sent the following data to the server via EMIT:</p>
+                <p id="dataDisplay" ></p>
+            </div>
+            <div class="answers">
+                <div class="keyvalue">
+                    <p>Name:</p>
+                    <p id="formName"></p>
+                </div>
+                <div class="keyvalue">
+                    <p>Course:</p>
+                    <p id="formCourse"></p>
+                </div>
+                <div class="keyvalue">
+                    <p>Rating:</p>
+                    <p id="formRating"></p>
+                </div>
+                <div class="keyvalue">
+                    <p>Reason:</p>
+                    <p id="formReason"></p>
+                </div>
+            </div>
+        </main>
+    </body>
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+    <script>
+
+        const elName = document.getElementById('formName');
+        const elCourse = document.getElementById('formCourse');
+        const elRating = document.getElementById('formRating');
+        const elReason = document.getElementById('formReason');
+        const dataDisplay = document.getElementById('dataDisplay');
+        const dataDiv = document.getElementById('dataDiv');
+
+        const socket = io();
+        socket.emit("client:hello", {type: "display_form"})
+
+        socket.on('form:display', function(data){
+            const {name, course, rating, reason} = data.data;
+
+            elName.innerText = name;
+            elCourse.innerText = course;
+            elRating.innerText = rating;
+            elReason.innerText = reason;
+            dataDisplay.innerText = JSON.stringify(data);
+
+            dataDiv.style.display = 'block';
+        })
+    </script>
+</html>
