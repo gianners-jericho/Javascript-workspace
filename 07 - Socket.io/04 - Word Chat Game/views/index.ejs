@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broadcast Example</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Guess the Word:</h1>
+    <h2 id="hint">c _ _ _ _ e &nbsp; c _ _ e</h2>
+
+    <div id="chat-board"></div>
+
+    <input type="text" id="guess-input" placeholder="enter your guess word here">
+    <button id="submit-btn">Submit</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        // Ask for the user's name as soon as the page loads. Will not stop unless name is provided 
+        let username = "";
+        while (!username) {
+            username = prompt("Enter your name:");
+        }
+
+        // Tell the server who we are. In response it will send us "chat_history" with everything said before we connected.
+        socket.emit("join", username);
+
+        const chatBoard = document.getElementById("chat-board");
+        const guessInput = document.getElementById("guess-input");
+        const submitBtn = document.getElementById("submit-btn");
+
+        // Adds a single line to the chat board.
+        function addMessage(message) {
+            const line = document.createElement("div");
+
+            if (message.system) {
+                // The green announcement that says you got the word.
+                line.textContent = message.text;
+                line.className = "system-message";
+            } else {
+                line.textContent = `${message.name}: ${message.text}`;
+            }
+
+            chatBoard.appendChild(line);
+
+            // Keep the newest message in view.
+            chatBoard.scrollTop = chatBoard.scrollHeight;
+        }
+
+        // Sent once, right after we join, everything said before we arrived.
+        socket.on("chat_history", function (history) {
+            history.forEach(addMessage);
+        });
+
+        // Sent every time anyone (including us) sends a new message.
+        socket.on("chat_message", function (message) {
+            addMessage(message);
+        });
+
+        function sendGuess() {
+            const text = guessInput.value.trim();
+            if (!text) return;
+
+            socket.emit("chat_message", text);
+            guessInput.value = "";
+        }
+
+        submitBtn.addEventListener("click", sendGuess);
+
+        // Let Enter submit too, same as clicking the button.
+        guessInput.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                sendGuess();
+            }
+        });
+    </script>
+</body>
+</html>
