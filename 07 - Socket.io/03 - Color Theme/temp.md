@@ -1,1 +1,0 @@
-Chapter 07 Assignment 03 - Color Theme

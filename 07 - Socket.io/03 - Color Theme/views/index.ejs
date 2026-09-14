@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Theme</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            transition: background-color 0.3s ease; /* Smooth color transitions */
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007bff;
+            border: 2px solid #000;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px #000;
+        }
+        button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-container">
+        <button id="light-btn">Light mode</button>
+        <button id="random-btn">Random mode</button>
+        <button id="dark-btn">Dark mode</button>
+    </div>
+
+    <!-- Socket.io client library served automatically -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Your static JS file -->
+    <script src="/client.js"></script>
+</body>
+</html>
