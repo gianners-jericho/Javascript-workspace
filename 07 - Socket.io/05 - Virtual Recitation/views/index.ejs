@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Virtual Recitation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <button onclick="raiseHand()">
+        Raise Hand
+    </button>
+
+    <div id="events-box">
+    </div>
+  </div>
+</body>
+<script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+<script>
+
+    function buildSentence(id, action){
+        return `<p>Socket ID <span style="font-weight: 600;">${id}</span> ${action}.</p>`
+    }
+
+    const elBox = document.getElementById('events-box');
+
+    // Socket Connection
+    const socket = io();
+    socket.on("", function(data){
+        init(data);
+    });
+    
+    socket.on("user:entered", function(data){
+        let html = elBox.innerHTML;
+        html += buildSentence(data.data, 'entered the room')
+        elBox.innerHTML = html;
+    });
+    
+    socket.on("user:raised", function(data){
+        let html = elBox.innerHTML;
+        html += buildSentence(data.data, 'raised his/her hand')
+        elBox.innerHTML = html;
+    });
+    
+    socket.on("user:left", function(data){
+        let html = elBox.innerHTML;
+        html += buildSentence(data.data, 'left the room')
+        elBox.innerHTML = html;
+    });
+    
+    function raiseHand(){
+        socket.emit("user:raise", {});
+    }
+
+</script>
+</html>
