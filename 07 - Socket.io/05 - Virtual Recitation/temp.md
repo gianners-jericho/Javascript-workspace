@@ -1,1 +1,0 @@
-Chapter 07 Assignment 05 - Virtual Recitation
