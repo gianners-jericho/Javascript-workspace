@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Coupons</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome Customer!</h1>
+        <p>We're giving away <strong>free coupons</strong> to the first 10 customers!</p>
+        <p>Remaining coupons: <strong><%= remainingCoupons %></strong></p>
+
+        <% if (claimed) { %>
+            <div class="coupon-card">
+                <h2>Congratulations, <%= customerName %>!</h2>
+                <p>Here is your 7-digit coupon code: <strong><%= ticketNumber %></strong></p>
+                
+                <div class="button-group">
+                    <% if (remainingCoupons > 0) { %>
+                        <a href="/next" class="btn-link">Claim Another Coupon</a>
+                    <% } %>
+                    <a href="/reset" class="btn-link">Reset</a>
+                </div>
+            </div>
+        <% } else if (remainingCoupons > 0) { %>
+            <form action="/claim" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+            <div class="button-group">
+                <a href="/reset" class="btn-link">Reset</a>
+            </div>
+        <% } else { %>
+            <div class="coupon-card">
+                <h2>Unavailable</h2>
+                <p>Sorry, all coupons have been redeemed!</p>
+                <div class="button-group">
+                    <a href="/reset" class="btn-link">Reset Coupons</a>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

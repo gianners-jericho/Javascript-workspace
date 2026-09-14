@@ -8,15 +8,18 @@ const PORT = 8000;
 //FOR EJS COMPATIBILITY (setting application environment, not equivalent to system-level environments like env files)
 
 //set view engine as ejs (tells express what file extension to expect and which template library to use for parsing)
-app.set("view engine", "ejs");
+app.set("view engine", "ejs"); //view engine is not user defined
 //set views to current_path/views for response.render() method
-app.set("views", path.join(__dirname, "views")); 
+app.set("views", path.join(__dirname, "views")); //views is not user defined
 
 //GLOBAL MIDDLEWARES
 
 //global middleware to parse FORM submissions (must always be at the top)
 app.use(express.urlencoded({ extended: true }));
 //global middleware to set routes for static files to serve them
+//this eliminates the need to have individual app.get handlers for each image for the server to serve them to the client
+//Since a web server is separate from the client, something like <img src = "/images/logo,png"> fires a get request to that route. 
+//Opening a local html file in the browser uses a different protocol (file protocol), so it doesn't need to make a get request with img tags.
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 /*other middleware options:

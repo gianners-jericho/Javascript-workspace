@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body class="body">
+    <div class="form-wrapper">
+        <h1>Feedback Form</h1>
+        
+        <form action="/index/submit" method="POST">
+            <div class="form-wrapper">
+                <div class="result-row">
+                    <label class="result-label" for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="result-row">
+                    <label class="result-label" for="course_title">Course Title:</label>
+                    <select id="course_title" name="course_title" required>
+                        <option value="PHP">PHP</option>
+                        <option value="Web Fundamentals">Web Fundamentals</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Express">Express</option>
+                        <option value="Python">Python</option>
+                        <option value="Ruby">Ruby</option>
+                        <option value="Golang">Golang</option>
+                    </select>
+                </div>
+
+                <div class="result-row">
+                    <label class="result-label" for="score">Given Score:</label>
+                    <select id="score" name="score" required>
+                        <option value="5">10 - Perfect</option>
+                        <option value="5">9</option>
+                        <option value="5">8</option>
+                        <option value="5">7</option>
+                        <option value="5">6</option>
+                        <option value="5">5 - Average</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1 - Unacceptable</option>
+                    </select>
+                </div>
+
+                <div class="result-row">
+                    <label class="result-label" for="reason">Reason:</label>
+                </div>
+                <textarea id="reason" name="reason" placeholder="Leave your feedback here..."></textarea>
+
+                <div class="button-wrapper">
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
