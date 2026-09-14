@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Theme</title>
+</head>
+<body>
+    <button id="light-mode">Light mode</button> 
+    <button id="random-mode">Random mode</button> 
+    <button id="dark-mode">Dark mode</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        const socket = io();
+        
+        // Check log for connection confirmation 
+        socket.on("message", function(message) {
+            console.log(message);
+        });
+
+        // For assigning variables to buttons
+        const light_mode = document.getElementById("light-mode");
+        const random_mode = document.getElementById("random-mode");
+        const dark_mode = document.getElementById("dark-mode");
+
+        // For light mode button 
+        light_mode.addEventListener("click", function(event) {
+            socket.emit("light");
+        });
+
+        // For random mode button
+        random_mode.addEventListener("click", function(event) {
+            socket.emit("random");
+        });
+
+        // For dark mode button
+        dark_mode.addEventListener("click", function(event) {
+            socket.emit("dark");
+        });
+
+        // For updating colors
+        socket.on("update_color", function(color) {
+            document.body.style.backgroundColor = color;
+        });
+
+    </script>
+</body>
+</html>
