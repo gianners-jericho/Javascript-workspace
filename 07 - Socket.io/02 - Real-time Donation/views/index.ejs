@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-time donation</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <script defer src="/socket.io/socket.io.js"></script>
+    <script defer src="/scripts/index.js"></script>
+    <script defer src="/scripts/buttons.js"></script>
+</head>
+<body>
+    <div>
+        <div>       
+            <p id = "total-cash" style="display:none;">...</p>
+            <p>Give according to one's capacity, take according to one's need</p>
+            <p id = "last-user" style="display:none;"></p>
+        </div>
+        <div>
+            <button id = "donate-button">
+                Donate $10
+            </button>
+            <button id = "redeem-button">
+                Redeem $10
+            </button>
+        </div>
+    </div>
+</body>
+</html>

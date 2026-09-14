@@ -16,11 +16,12 @@ app.set("views", path.join(__dirname, "views")); //views is not user defined
 
 //global middleware to parse FORM submissions (must always be at the top)
 app.use(express.urlencoded({ extended: true }));
-//global middleware to set routes for static files to serve them
+
+//global middleware to set routes for static files to serve them automatically when requested by the client
 //this eliminates the need to have individual app.get handlers for each image for the server to serve them to the client
 //Since a web server is separate from the client, something like <img src = "/images/logo,png"> fires a get request to that route.
 //This is the same with styles, client side javascript, using <rel="stylesheets" href="url"> and <script src = "script_url">
-//Opening a local html file in the browser uses a different protocol (file protocol), so it doesn't need to make a get request, it just looks for the files on the disk.
+//Note: Opening a local html file in the browser uses a different protocol (file protocol), so it doesn't need to make a get request, it just looks for the files on the disk.
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 /*other middleware options:
