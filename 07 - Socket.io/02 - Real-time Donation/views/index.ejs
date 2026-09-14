@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Drive</title>
+</head>
+<body>
+   <h1 id="amount">Total Cash Donations: $<%= amount %></h1> 
+   <p>Give according to one's capacity; Take according to one's need</p>
+
+   <button id="donate-button">Donate $10</button>
+   <button id="redeem-button">Redeem $10</button>
+
+   <script src="/socket.io/socket.io.js"></script>
+
+   <script>
+        const socket = io();
+
+        socket.on("message", function(message) {
+            console.log(message);
+        });
+
+        const donate = document.getElementById("donate-button");
+        const redeem = document.getElementById("redeem-button");
+
+        donate.addEventListener("click", function (event) {
+
+            socket.emit("donate_money");
+
+        });
+
+        redeem.addEventListener("click", function (event) {
+            socket.emit("redeem_money");
+        })
+
+        socket.on("updated_amount", function(amount) {
+            document.getElementById("amount").textContent = "Total Cash Donations: $" + amount;
+        });
+   </script>
+</body>
+</html>
