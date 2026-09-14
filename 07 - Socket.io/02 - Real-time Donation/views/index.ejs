@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <style>
+            main{
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            span {
+                padding: 16px;
+                border: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Total Cash Donation</h1>
+            <span id="money">0</span>
+            
+            <div>
+                <button onclick="donate()">Donate 10 PHP</button>
+                <button onclick="redeem()">Redeem 10 PHP</button>
+            </div>
+        </main>
+    </body>
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+    <script>
+        const elMoney = document.getElementById('money');
+        const socket = io();
+        console.log("connected");
+
+        socket.on('money:current', function(data){
+            console.log('amount changed', data.amount)
+            elMoney.innerText = data.amount;
+        })
+
+        function donate() {
+            console.log('fired donate')
+            socket.emit('money:donate', {amount: 10})
+        }
+
+        function redeem() {
+            console.log('fired redeem')
+            socket.emit('money:redeem', {amount: 10})
+        }
+    </script>
+</html>
