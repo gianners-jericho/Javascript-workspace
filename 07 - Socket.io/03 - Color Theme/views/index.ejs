@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <style>
+            main{
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            button {
+                padding: 12px 16px;
+                color: white;
+                background-color: dodgerblue;
+            }
+
+            div {
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            
+            <div>
+                <button onclick="light()">Light Theme</button>
+                <button onclick="dark()">Dark Theme</button>
+                <button onclick="random()">Random Color</button>
+            </div>
+        </main>
+    </body>
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+    <script>
+        const body = document.body;
+        const socket = io();
+        console.log("connected");
+
+        socket.on('color:current', function(data){
+            console.log('color changed', data.color)
+            body.style.backgroundColor = data.color;
+        })
+
+        function light() {
+            socket.emit('color:light', {})
+        }
+
+        function dark() {
+            socket.emit('color:dark', {})
+        }
+
+        function random() {
+            socket.emit('color:random', {})
+        }
+    </script>
+</html>
