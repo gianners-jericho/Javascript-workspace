@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        /* Hidden by default, shown when socket emissions return */
+        #response-container {
+            display: none;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Container for socket responses -->
+    <div id="response-container">
+        <p id="updated-message"></p>
+        <p id="id-number"></p>
+    </div>
+
+    <div class="card">
+        <h1>Feedback Form</h1>
+
+        <!-- Form tag no longer needs action/method -->
+        <form id="feedback-form">
+            <div>
+                <label for="name">Your Name (optional):</label><br>
+                <input type="text" id="name" name="name">
+            </div>
+
+            <br>
+
+            <div>
+                <label for="course">Course Title:</label><br>
+                <select id="course" name="course">
+                    <option value="PHP Track">PHP Track</option>
+                    <option value="Node.js Track">Node.js Track</option>
+                    <option value="React Track">React Track</option>
+                </select>
+            </div>
+
+            <br>
+
+            <div>
+                <label for="score">Given Score (1-10):</label><br>
+                <select id="score" name="score">
+                    <% for(let i = 1; i <= 10; i++) { %>
+                        <option value="<%= i %>"><%= i %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <br>
+
+            <div>
+                <label for="reason">Reason:</label><br>
+                <textarea id="reason" name="reason" rows="4" cols="30"></textarea>
+            </div>
+
+            <br>
+
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script src ="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+</body>
+</html>
