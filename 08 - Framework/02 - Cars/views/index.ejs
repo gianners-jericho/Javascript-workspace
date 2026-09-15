@@ -6,6 +6,11 @@
     <title>Cars</title>
 </head>
 <body>
+    
+    <!-- For showing the count of cars in the database -->
+    <p>You have <u><%= count.count %></u> cars!</p>
+
+    <!-- For showing the cars in the database -->
     <p>The cars in the database are as follows:</p>
     <ul>
         <% for(let i = 0; i < cars.length; i++) { %>
