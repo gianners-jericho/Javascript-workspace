@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Recitation</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: white;
+        }
+
+        .recitation-container {
+            width: min(100% - 48px, 680px);
+            margin: 0 auto;
+            padding-top: 72px;
+        }
+
+        .raise-hand-button {
+            display: block;
+            margin: 0 auto 100px;
+            padding: 12px 18px;
+            color: white;
+            background-color: #00a000;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .messages {
+            min-height: 300px;
+            font-size: 22px;
+            line-height: 1.35;
+        }
+
+        .message {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <main class="recitation-container">
+        <button class="raise-hand-button" type="button" id="raiseHand">
+            Raise Hand
+        </button>
+
+        <section class="messages" id="messages" aria-live="polite"></section>
+    </main>
+
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        //Emitter: tell the server that this user raised their hand.
+        document.getElementById('raiseHand').addEventListener('click', function () {
+            socket.emit('raiseHand');
+        });
+
+        //Listener: waits for messages from the server.
+        socket.on('update', function (data) {
+            const messages = document.getElementById('messages');
+            const message = document.createElement('p');
+
+            message.className = 'message';
+            message.textContent = data.message;
+
+            messages.appendChild(message);
+        });
+    </script>
+</body>
+</html>

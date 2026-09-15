@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Feedback Form</title>
+</head>
+<body>
+    <h1>Submitted Entry</h1>
+
+    <p>Your Name (optional): <%= name %></p>
+    <p>Course Title: <%= course %></p>
+    <p>Given Score (1-10): <%= score %>pts</p>
+
+    <p>Reason:</p>
+    <p><%= reason %></p>
+
+    <!-- RETURN BUTTON, GOES BACK TO THE FORM -->
+    <form action="/">
+        <input type="submit" value="Return">
+    </form>
+</body>
+</html>

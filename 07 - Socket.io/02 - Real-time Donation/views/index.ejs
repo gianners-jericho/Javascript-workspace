@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Drive</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: white;
+        }
+
+        .donation-container {
+            width: min(100% - 32px, 560px);
+            padding-top: 28px;
+            text-align: center;
+        }
+
+        .total-donation {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .donation-message {
+            margin: 16px 0 38px;
+            font-size: 23px;
+            line-height: 1.25;
+        }
+
+        .donation-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            padding: 0 54px;
+        }
+
+        button {
+            min-width: 180px;
+            padding: 8px 18px;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .donate-button {
+            background-color: #2f7de1;
+        }
+
+        .redeem-button {
+            background-color: #e00000;
+        }
+    </style>
+</head>
+<body>
+    <main class="donation-container">
+        <h1 class="total-donation" id="total_balance">Total Cash Donation: $0</h1>
+        <p class="donation-message">
+            Give according to one's capacity;<br>
+            Take according to one's need
+        </p>
+
+        <div class="donation-actions">
+            <button class="donate-button" type="button" id="donateBtn">Donate $10</button>
+            <button class="redeem-button" type="button" id="redeemBtn">Redeem $10</button>
+        </div>
+    </main>
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+    <script>
+        // Creates the client connection to the Socket.IO server.
+        const socket = io();
+
+        // Emitter: sends the donation action to the server.
+        document.getElementById('donateBtn').addEventListener('click', function (event) {
+            socket.emit('btnPushed', 'update');
+        })
+
+        // Emitter: sends the redemption action to the server.
+        document.getElementById('redeemBtn').addEventListener('click', function (event) {
+            socket.emit('btnPushed', 'redeem');
+        })
+
+        // Listener: waits for the updated balance from the server.
+        socket.on('update', function (data) {
+            const message = document.getElementById('total_balance')
+
+            message.innerHTML = `Total Cash Donation: $${data.total}`;
+
+        });
+    </script>
+</body>
+</html>

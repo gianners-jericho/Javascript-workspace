@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Theme</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: white;
+        }
+
+        .theme-actions {
+            display: flex;
+            justify-content: space-between;
+            width: min(100% - 170px, 540px);
+            margin: 18px auto 0;
+        }
+
+        button {
+            padding: 6px 12px;
+            color: white;
+            background-color: #2f7de1;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body id="background_color">
+    <main class="theme-actions">
+        <button type="button" id="lightBtn">Light mode</button>
+        <button type="button" id="randomBtn">Random mode</button>
+        <button type="button" id="darkBtn">Dark mode</button>
+    </main>
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        // Emitter: sends the action to the server.
+        document.getElementById('lightBtn').addEventListener('click', function (event) {
+            socket.emit('btnPushed', 'light');
+        });
+        document.getElementById('randomBtn').addEventListener('click', function (event) {
+            socket.emit('btnPushed', 'random');
+        });
+        document.getElementById('darkBtn').addEventListener('click', function (event) {
+            socket.emit('btnPushed', 'dark');
+        });
+
+        //Listener: wait for the updated color from the server.
+        socket.on('update', function (data) {
+            const color = document.getElementById('background_color');
+
+            color.style.backgroundColor = `#${data.color}`
+        });
+    </script>
+</body>
+</html>

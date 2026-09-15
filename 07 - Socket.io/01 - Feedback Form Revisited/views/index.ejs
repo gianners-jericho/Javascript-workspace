@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Feedback Form</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            box-sizing: border-box;
+            background: #b5dfa4;
+            border: 2px solid #000000;
+            padding: 15px 18px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .container:has(#message:empty) {
+            display: none;
+        }
+
+        h1 {
+            width: 100%;
+            max-width: 520px;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 25px 30px 10px;
+            text-align: center;
+            font-size: 32px;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-bottom: none;
+        }
+
+        form {
+            width: 100%;
+            max-width: 520px;
+            box-sizing: border-box;
+            padding: 10px 30px 25px;
+            background: #ffffff;
+            border: 2px solid #000000;
+            border-top: none;
+        }
+
+        label {
+            font-size: 15px;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin-left: auto;
+            padding: 9px 22px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #ffffff;
+            background: #2f80ed;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #1c6ad8;
+        }
+    </style>
+</head>
+<body >
+
+    <div class="container">
+        <p id="message"></p>
+        <br>
+        <p id="random-id"></p>
+    </div>
+
+    <h1>Feedback Form</h1>
+
+    <form action="/result" method="post" id="form">
+        <label for="name">Your Name (optional):</label><br>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="course">Course Title:</label><br>
+        <select id="course" name="course">
+            <% for (let i = 0; i < courses.length; i++) { %>
+                <option value="<%= courses[i] %>"><%= courses[i] %></option>
+            <% } %>
+        </select><br><br>
+
+        <label for="score">Given Score (1-10):</label><br>
+        <select id="score" name="score">
+            <% for (let i = 1; i <= 10; i++) { %>
+                <option value="<%= i %>"><%= i %></option>
+            <% } %>
+        </select><br><br>
+
+        <label for="reason">Reason:</label><br>
+        <textarea id="reason" name="reason" rows="4" cols="40"></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        //event listener
+        document.getElementById('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            //store the data's in a variable
+            const formData = {
+                name: document.getElementById('name').value,
+                course: document.getElementById('course').value,
+                score: document.getElementById('score').value,
+                reason: document.getElementById('reason').value
+            }
+            //trigger the event witth the form data
+            socket.emit('posting_form', formData);
+        })
+
+        //change the messages
+        socket.on('updated_message', function (data) {
+            const paragraph = document.getElementById('message');
+            
+            paragraph.innerHTML = data.msg;
+        });
+        socket.on('id_number', function (data) {
+            const randomID = document.getElementById('random-id')
+
+            randomID.innerHTML = data.msg;
+        });
+    </script>
+</body>
+</html>
