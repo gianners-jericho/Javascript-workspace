@@ -39,6 +39,22 @@ class StudentsModel extends Model {
             callback(null, results);
         }); 
     }
+
+    // For finding students by id, useful in sessions id
+    findById(id, callback) {
+
+        const sql = "SELECT * FROM students WHERE id = ?";
+
+        this.query(sql, [id], function(error, results) {
+
+            if (error) {
+                callback(error, null);
+                return;
+            }
+
+            callback(null, results[0])
+        });
+    }
 }
 
 module.exports = StudentsModel;
