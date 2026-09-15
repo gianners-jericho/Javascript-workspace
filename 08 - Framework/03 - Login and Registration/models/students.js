@@ -16,6 +16,7 @@ class StudentsModel extends Model {
                 return;
             }
 
+            // Returns the first result
             callback(null, results[0]);
         });
     }
