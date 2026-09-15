@@ -1,0 +1,11 @@
+<% if (players.length === 0) { %>
+  <p>No athletes found matching your criteria.</p>
+<% } else { %>
+  <% players.forEach(player => { %>
+    <div class="player-card">
+      <img src="<%= player.image_url %>" alt="<%= player.name %>">
+      <p><strong><%= player.name %></strong></p>
+      <small><%= player.gender %> | <%= player.sport %></small>
+    </div>
+  <% }) %>
+<% } %>
