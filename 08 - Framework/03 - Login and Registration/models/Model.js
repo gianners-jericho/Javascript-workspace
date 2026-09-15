@@ -6,7 +6,16 @@ class Model {
     constructor() {
         // Automatic database connection for the children
         this.connection = mysql.createConnection(config);
-        this.connection.connect();
+
+        // A check to see if we have properly connected to the right database
+        this.connection.connect(function(error) {
+            if (error) {
+                console.log(`Database connection failed: ${error}`);
+                return;
+            }
+
+            console.log(`Successfully connected to the ${process.env.DB_NAME} database`);
+        });
     }
 
     // Query function for the children to inherit and build queries with
@@ -21,3 +30,5 @@ class Model {
         });
     }
 }
+
+// const model = new Model();
