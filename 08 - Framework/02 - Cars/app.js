@@ -4,7 +4,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-const PORT = 8000;
+const PORT = 8080;
 
 const routes = require("./routes");
 
