@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Welcome <%= student.first_name %>!</h1>
+            <a href="/logout">Log Off</a>
+        </header>
+
+        <div class="profile-card" style="border: 1px solid #000; padding: 20px; width: 300px;">
+            <p><strong>First Name:</strong> <%= student.first_name %></p>
+            <p><strong>Last Name:</strong> <%= student.last_name %></p>
+            <p><strong>Email Address:</strong> <%= student.email %></p>
+        </div>
+    </div>
+</body>
+</html>
