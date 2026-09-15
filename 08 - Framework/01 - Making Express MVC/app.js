@@ -18,12 +18,12 @@ app.use(session({
   secret: 'a strong secret',
 }));
 
-app.get('/', (req, res) => {
+app.get('/', function(req, res) {
   res.send('Hello World!');
 });
 
 app.use('/', routes);
 
-app.listen(port, () => {
+app.listen(port, function() {
   console.log(`Example MVC app listening on port ${port}`);
 });
