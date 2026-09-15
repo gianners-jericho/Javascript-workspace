@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Athletes</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #f4f5f7;
+    color: #222;
+    margin: 0;
+    padding: 24px;
+  }
+  h1 {
+    font-size: 22px;
+    margin: 0 0 16px;
+  }
+  .layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .filters {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    width: 260px;
+    flex-shrink: 0;
+  }
+  .filters h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+    margin: 0 0 8px;
+  }
+  .filter-group {
+    margin-bottom: 20px;
+  }
+  .filter-group:last-child {
+    margin-bottom: 0;
+  }
+  .filter-group input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  .option-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 14px;
+  }
+  .option-row label {
+    cursor: pointer;
+  }
+  .clear-btn {
+    margin-top: 16px;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #eee;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .clear-btn:hover {
+    background: #e0e0e0;
+  }
+  .results {
+    flex: 1;
+    min-width: 300px;
+  }
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #666;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+  }
+  th {
+    background: #fafafa;
+    font-weight: 600;
+    color: #555;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+  .empty, .loading, .error {
+    padding: 24px;
+    text-align: center;
+    color: #888;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .error {
+    color: #b00020;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: #eef2ff;
+    color: #3b4bdb;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Athletes</h1>
+
+<div class="layout">
+  <div class="filters">
+    <div class="filter-group">
+      <h2>Name</h2>
+      <input type="text" id="nameInput" placeholder="Search by name...">
+    </div>
+
+    <div class="filter-group">
+      <h2>Gender</h2>
+      <div id="genderOptions">
+        <div class="option-row">
+          <input type="radio" name="gender" id="gender-all" value="" checked>
+          <label for="gender-all">All</label>
+        </div>
+        <div class="option-row">
+          <input type="radio" name="gender" id="gender-male" value="male">
+          <label for="gender-male">Male</label>
+        </div>
+        <div class="option-row">
+          <input type="radio" name="gender" id="gender-female" value="female">
+          <label for="gender-female">Female</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h2>Sport</h2>
+      <div id="sportOptions">
+        <!-- filled in dynamically -->
+      </div>
+    </div>
+
+    <button class="clear-btn" id="clearBtn">Clear filters</button>
+  </div>
+
+  <div class="results">
+    <div class="results-header">
+      <span id="resultCount"></span>
+    </div>
+    <div id="resultsContainer">
+      <div class="loading">Loading athletes...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const nameInput = document.getElementById('nameInput');
+  const sportOptions = document.getElementById('sportOptions');
+  const genderOptions = document.getElementById('genderOptions');
+  const resultsContainer = document.getElementById('resultsContainer');
+  const resultCount = document.getElementById('resultCount');
+  const clearBtn = document.getElementById('clearBtn');
+
+  let sports = [];
+  let debounceTimer = null;
+
+  // ---- Init: load sports for the checkbox list ----
+  async function loadSports() {
+    try {
+      const res = await fetch('/api/sports');
+      if (!res.ok) throw new Error('Failed to load sports');
+      sports = await res.json();
+      renderSportOptions();
+    } catch (err) {
+      sportOptions.innerHTML = '<div class="error">Could not load sports</div>';
+      console.error(err);
+    }
+  }
+
+  function renderSportOptions() {
+    sportOptions.innerHTML = sports.map(sport => `
+      <div class="option-row">
+        <input type="checkbox" class="sport-checkbox" id="sport-${sport.id}" value="${sport.id}">
+        <label for="sport-${sport.id}">${escapeHtml(sport.name)}</label>
+      </div>
+    `).join('');
+
+    document.querySelectorAll('.sport-checkbox').forEach(cb => {
+      cb.addEventListener('change', fetchAthletes);
+    });
+  }
+
+  // ---- Build query string from current filter state ----
+  function buildQuery() {
+    const params = new URLSearchParams();
+
+    const name = nameInput.value.trim();
+    if (name) params.append('name', name);
+
+    const genderChecked = document.querySelector('input[name="gender"]:checked');
+    if (genderChecked && genderChecked.value) params.append('gender', genderChecked.value);
+
+    document.querySelectorAll('.sport-checkbox:checked').forEach(cb => {
+      params.append('sport', cb.value);
+    });
+
+    return params.toString();
+  }
+
+  // ---- Fetch athletes based on current filters ----
+  async function fetchAthletes() {
+    resultsContainer.innerHTML = '<div class="loading">Loading athletes...</div>';
+    resultCount.textContent = '';
+
+    const query = buildQuery();
+    const url = '/api/athletes' + (query ? ('?' + query) : '');
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Request failed with status ' + res.status);
+      const athletes = await res.json();
+      renderAthletes(athletes);
+    } catch (err) {
+      resultsContainer.innerHTML = '<div class="error">Failed to load athletes. Please try again.</div>';
+      console.error(err);
+    }
+  }
+
+  function renderAthletes(athletes) {
+    if (!athletes || athletes.length === 0) {
+      resultsContainer.innerHTML = '<div class="empty">No athletes match your filters.</div>';
+      resultCount.textContent = '0 results';
+      return;
+    }
+
+    resultCount.textContent = athletes.length + (athletes.length === 1 ? ' result' : ' results');
+
+    const rows = athletes.map(a => `
+      <tr>
+        <td>${escapeHtml(a.first_name)} ${escapeHtml(a.last_name)}</td>
+        <td>${escapeHtml(a.gender)}</td>
+        <td><span class="badge">${escapeHtml(a.sport)}</span></td>
+      </tr>
+    `).join('');
+
+    resultsContainer.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Sport</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+    `;
+  }
+
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // ---- Event wiring ----
+  nameInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(fetchAthletes, 300); // debounce typing
+  });
+
+  genderOptions.addEventListener('change', fetchAthletes);
+
+  clearBtn.addEventListener('click', () => {
+    nameInput.value = '';
+    document.getElementById('gender-all').checked = true;
+    document.querySelectorAll('.sport-checkbox').forEach(cb => cb.checked = false);
+    fetchAthletes();
+  });
+
+  // ---- Kick things off ----
+  loadSports();
+  fetchAthletes();
+})();
+</script>
+
+</body>
+</html>

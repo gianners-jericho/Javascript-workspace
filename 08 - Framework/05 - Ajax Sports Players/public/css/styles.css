@@ -1,0 +1,252 @@
+:root {
+  --ink: #12141a;
+  --ink-soft: #1c2029;
+  --paper: #fbfaf7;
+  --line: #e4e1d8;
+  --brass: #b08d3e;
+  --brass-dark: #8c6f2e;
+  --text: #1c1c1c;
+  --muted: #6b6b63;
+  --error: #b23a3a;
+  --success: #3e7a52;
+  --radius: 3px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Work Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text);
+}
+
+/* ---------- Auth pages (login / register) ---------- */
+
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.55);
+}
+
+.mark {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--brass-dark);
+  margin: 0 0 28px;
+  letter-spacing: 0.01em;
+}
+
+.card h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 32px;
+}
+
+.error-banner {
+  background: rgba(178, 58, 58, 0.08);
+  border: 1px solid var(--error);
+  color: var(--error);
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.error {
+  color: var(--error);
+  font-weight: 500;
+}
+
+.field {
+  margin-bottom: 22px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+.field input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  padding: 8px 2px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.field input:focus {
+  outline: none;
+  border-bottom-color: var(--brass);
+}
+
+.field input::placeholder {
+  color: #b6b3a8;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+button.primary {
+  width: 100%;
+  background: var(--brass);
+  color: var(--ink);
+  border: none;
+  padding: 14px;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background-color 0.15s ease;
+}
+
+button.primary:hover {
+  background: var(--brass-dark);
+}
+
+button.primary:focus-visible,
+a:focus-visible,
+.field input:focus-visible {
+  outline: 2px solid var(--brass-dark);
+  outline-offset: 2px;
+}
+
+.foot {
+  margin-top: 28px;
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.foot a {
+  color: var(--brass-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.foot a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Dashboard (logged-in) ---------- */
+
+.dash-page {
+  min-height: 100vh;
+  padding: 0 0 64px;
+}
+
+.dash-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+
+.dash-nav .mark {
+  margin: 0;
+  color: var(--paper);
+}
+
+button.ghost {
+  background: transparent;
+  border: 1px solid rgba(251, 250, 247, 0.35);
+  color: var(--paper);
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+button.ghost:hover {
+  border-color: var(--paper);
+}
+
+.statement {
+  max-width: 720px;
+  margin: 40px auto 0;
+  padding: 0 24px;
+}
+
+.statement h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--brass-dark);
+  margin: 0 0 6px;
+}
+
+.statement .subtitle {
+  color: #a9adb8;
+  margin-bottom: 32px;
+}
+
+.statement .card {
+  padding: 8px 36px;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row .label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.row .value {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: right;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 36px 24px;
+  }
+}
