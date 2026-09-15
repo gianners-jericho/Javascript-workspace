@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Visit Counter & Reset Button -->
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <p>You did <strong><%= visits %>x</strong> visiting this page.</p>
+            <form action="/reset" method="POST" style="margin: 0;">
+                <button type="submit">Reset</button>
+            </form>
+        </div>
+
+        <!-- Car Count -->
+        <p>You have <strong><%= cars.length %></strong> cars!</p>
+
+        <p>The cars in the database are as follows:</p>
+
+        <!-- Car List -->
+        <ul>
+            <% cars.forEach(car => { %>
+                <li><%= car.name %> - <%= car.year %></li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>
