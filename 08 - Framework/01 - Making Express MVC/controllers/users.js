@@ -2,9 +2,9 @@ const UserModel = require("../models/users");
 
 class UserController {
     static index(req, res) {
-        const UserModel = new UserModel();
+        const userModel = new UserModel();
 
-        const users = UserModel.getUsers();
+        const users = userModel.getUsers();
 
         res.render("users", {
             users: users
