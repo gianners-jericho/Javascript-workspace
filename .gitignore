@@ -7,6 +7,7 @@ dist/
 build/
 .next/
 .nuxt/
+.env
 
 # Debug logs
 npm-debug.log*
