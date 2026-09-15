@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="dash-page">
+    <nav class="dash-nav">
+      <p class="mark">Ledger</p>
+      <form action="/logout" method="POST">
+        <button type="submit" class="mark">Sign out</button>
+      </form>
+    </nav>
+
+    <div class="statement">
+      <h1>Welcome back, <%= user.name %></h1>
+      <p class="subtitle">Here's what's on your account.</p>
+
+      <div class="card">
+        <div class="row">
+          <span class="label">Name</span>
+          <span class="value"><%= user.name %></span>
+        </div>
+        <div class="row">
+          <span class="label">Email</span>
+          <span class="value"><%= user.email %></span>
+        </div>
+        <div class="row">
+          <span class="label">Member since</span>
+          <span class="value">
+            <%= typeof user.memberSince !== "undefined" ? user.memberSince : "—" %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
