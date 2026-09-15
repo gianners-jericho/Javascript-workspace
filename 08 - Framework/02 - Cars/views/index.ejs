@@ -6,6 +6,11 @@
     <title>Cars</title>
 </head>
 <body>
-    <h1>This is the cars page</h1>
+    <p>The cars in the database are as follows:</p>
+    <ul>
+        <% for(let i = 0; i < cars.length; i++) { %>
+            <li><%= cars[i].name %> - <%= cars[i].year %></li>
+        <% } %>
+    </ul>
 </body>
 </html>
