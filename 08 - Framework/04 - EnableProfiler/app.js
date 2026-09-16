@@ -3,7 +3,9 @@ const session = require("express-session");
 
 const app = express();
 const PORT = 8888;
+
 const routes = require("./routes");
+const profiler = require("./middleware/profiler");
 
 app.set("view engine", "ejs");
 
@@ -17,6 +19,7 @@ app.use(
   }),
 );
 
+app.use(profiler);
 app.use(routes);
 
 app.listen(PORT, function () {
