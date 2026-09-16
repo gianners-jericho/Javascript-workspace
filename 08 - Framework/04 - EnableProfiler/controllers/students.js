@@ -6,9 +6,11 @@ const studentsModel = new StudentsModel();
 class StudentsController {
   static index(req, res) {
     const error = req.query.error;
+    const message = req.query.message;
 
     res.render("index", {
       error: error,
+      message: message
     });
   }
 
