@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="welcome-container">
+        <div class="welcome-heading">
+            <h1>Welcome <%= user.first_name %>!</h1>
+            <a href="/logoff">Log Off</a>
+        </div>
+
+        <section class="user-details">
+            <p>First Name: <%= user.first_name %></p>
+            <p>Last Name: <%= user.last_name %></p>
+            <p>Email Address: <%= user.email %></p>
+        </section>
+    </main>
+</body>
+</html>

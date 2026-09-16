@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="auth-container">
+        <% if (typeof error !== 'undefined') { %>
+            <p class="error-message"><%= error %></p>
+        <% } %>
+
+        <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+            <ul class="error-message">
+                <% for (let i = 0; i < errors.length; i++) { %>
+                    <li><%= errors[i].error %></li>
+                <% } %>
+            </ul>
+        <% } %>
+
+        <section class="auth-section">
+            <h1>Login</h1>
+
+            <form action="/login" method="POST" class="auth-form">
+                <label for="login-email">Email Address:</label>
+                <input id="login-email" name="email" type="email" required>
+
+                <label for="login-password">Password:</label>
+                <input id="login-password" name="password" type="password" required>
+
+                <button type="submit">Login</button>
+            </form>
+        </section>
+
+        <section class="auth-section">
+            <h2>Register</h2>
+
+            <form action="/register" method="POST" class="auth-form">
+                <label for="first-name">First Name:</label>
+                <input id="first-name" name="first_name" type="text" required>
+
+                <label for="last-name">Last Name:</label>
+                <input id="last-name" name="last_name" type="text" required>
+
+                <label for="register-email">Email Address:</label>
+                <input id="register-email" name="email" type="email" required>
+
+                <label for="register-password">Password:</label>
+                <input id="register-password" name="password" type="password" required>
+
+                <label for="confirm-password">Confirm Password:</label>
+                <input id="confirm-password" name="confirmPassword" type="password" required>
+
+                <button type="submit">Register</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
