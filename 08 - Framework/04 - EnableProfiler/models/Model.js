@@ -32,5 +32,4 @@ class Model {
     }
 }
 
-let test = new Model();
 module.exports = Model;
