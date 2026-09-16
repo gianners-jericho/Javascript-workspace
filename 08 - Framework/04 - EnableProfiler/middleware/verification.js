@@ -48,4 +48,21 @@ async function verifyRegistration(req, res, next) {
         console.log(`Registration verification failed: ${error}`); 
         return res.redirect("/?error=Something+went+wrong"); 
     }
+
+    // Verify login form 
+    function verifyLogin(req, res, next) {
+        const {email, password} = req.body;
+    }
+
+    // Check required fields 
+    if (!email || !password) { 
+        return res.redirect("/?error=Please+enter+your+email+and+password"); 
+    } 
+    
+    // Check email format 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { 
+        return res.redirect("/?error=Please+enter+a+valid+email"); 
+    } 
+    
+    next();
 }
