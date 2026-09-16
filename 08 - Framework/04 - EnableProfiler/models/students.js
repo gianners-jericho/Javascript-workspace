@@ -12,6 +12,18 @@ class StudentsModel extends Model{
         return results[0];
     }
 
+    // For registering students into the database
+    async registerStudent(firstName, lastName, email, password) {
+        const sql = `
+            INSERT INTO students (first_name, last_name, email, password)
+            VALUES (?, ?, ?, ?)`;
+    
+        const results = await this.query(sql, [firstName, lastName, email, password]);
+
+        return results;
+    }
+
+     
     
 }
 
