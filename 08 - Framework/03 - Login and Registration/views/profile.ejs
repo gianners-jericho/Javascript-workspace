@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>Profile</title>
 </head>
 <body>
-   <h1>This is the Profiles!</h1> 
+
+    <h1>Student Profile</h1>
+
+    <p>First Name: <%= student.first_name %></p>
+    <p>Last Name: <%= student.last_name %></p>
+    <p>Email: <%= student.email %></p>
+
+    <form action="/students/logout" method="POST">
+        <button type="submit">Log Out</button>
+    </form>
+
 </body>
 </html>
