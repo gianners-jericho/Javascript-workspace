@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+</head>
+<body>
+    <% if (message) { %>
+        <p><%= message %></p>
+    <% } %>
+
+    <h1>Login</h1>
+
+    <form action="/students/login" method="POST">
+
+        <label>Email:</label>
+        <input type="email" name="email">
+
+        <label>Password:</label>
+        <input type="password" name="password">
+
+        <button type="submit">Login</button>
+
+    </form>
+
+
+    <h1>Registration</h1>
+
+    <form action="/students/register" method="POST">
+
+        <label>First Name:</label>
+        <input type="text" name="first_name">
+
+        <label>Last Name:</label>
+        <input type="text" name="last_name">
+
+        <label>Email:</label>
+        <input type="email" name="email">
+
+        <label>Password:</label>
+        <input type="password" name="password">
+
+        <label>Confirm Password:</label>
+        <input type="password" name="confirm_password">
+
+        <button type="submit">Register</button>
+
+    </form>
+
+</body>
+</html>
