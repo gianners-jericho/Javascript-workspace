@@ -1,22 +1,38 @@
 const PlayersModel = require("../models/players");
 const playersModel = new PlayersModel();
 
-// Searches for players
-async function search(req, res) {
-    const { name, gender } = req.query;
+const genderList = ["M", "F"];
+const sportsList = ["Basketball", "Volleyball", "Baseball", "Soccer", "Football"];
 
-    // Sports arrives as a string if only one checkbox is checked,
-    // an array if multiple are checked, or undefined if none are
+async function search(req, res) {
+    const { name } = req.query;
+
+    // Tells us whether the form was actually submitted, or this is just the initial page load 
+    const submitted = req.query.submitted !== undefined;
+
+    let gender = req.query.gender;
+    if (!gender) gender = [];
+    if (!Array.isArray(gender)) gender = [gender];
+
     let sports = req.query.sports;
-    if (sports && !Array.isArray(sports)) {
-        sports = [sports];
+    if (!sports) sports = [];
+    if (!Array.isArray(sports)) sports = [sports];
+
+    // On first load (not submitted yet), default to everything checked
+    // so the page opens showing all players, matching the wireframe
+    if (!submitted) {
+        gender = genderList;
+        sports = sportsList;
     }
 
     const players = await playersModel.searchPlayers({ name, gender, sports });
 
-    // Temporary check will switch to res.render("search", ...) 
-    // once the view exists
-    res.json(players);
+    res.render("search", {
+        players,
+        genderList,
+        sportsList,
+        query: { name, gender, sports }
+    });
 }
 
 module.exports = { search };
