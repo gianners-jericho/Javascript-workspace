@@ -13,8 +13,6 @@ class Model {
                 console.log(`Database connection failed: ${error}`);
                 return;
             }
-
-            console.log(`Successfully connected to the ${process.env.DB_NAME} database`);
         });
     }
 
@@ -31,4 +29,4 @@ class Model {
     }
 }
 
-// const model = new Model();
+module.exports = Model;
