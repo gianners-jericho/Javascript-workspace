@@ -33,18 +33,18 @@
         console.log("connected");
 
         socket.on('money:current', function(data){
-            console.log('amount changed', data.amount)
+            console.log('amount changed', data.amount);
             elMoney.innerText = data.amount;
         })
 
         function donate() {
-            console.log('fired donate')
-            socket.emit('money:donate', {amount: 10})
+            console.log('fired donate');
+            socket.emit('money:donate', {amount: 10});
         }
 
         function redeem() {
-            console.log('fired redeem')
-            socket.emit('money:redeem', {amount: 10})
+            console.log('fired redeem');
+            socket.emit('money:redeem', {amount: 10});
         }
     </script>
 </html>

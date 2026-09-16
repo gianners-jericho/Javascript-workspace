@@ -9,11 +9,10 @@ const port = 3000;
 
 // Static Files
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // Routes
 app.get('/', (req, res) => {
@@ -25,20 +24,18 @@ app.get('/results', (req, res) => {
 })
 
 // Socket
-
 io.on('connection', function (socket) {
-    console.log("New connection")
     socket.emit('greeting', {msg: "Hello"})
 
     socket.on('client:hello', function(data){
         console.log(`${data.type} connected.`)
-    })
+    });
 
     socket.on('form:submit', function (data){
         console.log(data);
         console.log("emitting form:display with", data)
         io.emit('form:display', {data});
-    })
+    });
 })
 
 app.listen(port, () => {

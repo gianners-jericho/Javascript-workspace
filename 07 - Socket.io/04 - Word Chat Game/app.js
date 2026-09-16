@@ -4,10 +4,9 @@ const path = require('node:path');
 const app = express();
 const server = app.listen(3000);
 const io = require('socket.io')(server);
-const port = 3000;
 
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // Routes
 app.get('/', (req, res) => {
@@ -54,17 +53,17 @@ function gameInit(){
     const randomWord = getRandomWord();
     currentWord = randomWord;
     maskedWord = maskWord(randomWord);
-}
+};
 
 function getRandomWord() {
     return words[Math.floor(Math.random() * words.length)];
-}
+};
 
 function correctGuess(name){
     // announce correct
     const chat = {name: "System", content: `${name} guessed the word!`, timestamp: Date.now()};
     chats.push(chat);
-    emitNewChat(chat.name, chat.content, chat.timestamp)
+    emitNewChat(chat.name, chat.content, chat.timestamp);
 
     // update scores
     let nameIndex = null;
@@ -73,12 +72,12 @@ function correctGuess(name){
             nameIndex = i;
             break;
         };
-    }
+    };
 
     if(nameIndex > -1){
         scores[nameIndex].score++;
         emitScores();
-    }
+    };
 
     // Get new word
     let chosenWord = getRandomWord();
@@ -120,39 +119,39 @@ function shuffleArray(array) {
 
 // Socket Ons and Emissions
 function emitNewChat(name, content, timestamp){
-    io.emit("chat:update", {name: name, content: content, timestamp: timestamp})
+    io.emit("chat:update", {name: name, content: content, timestamp: timestamp});
 }
 
 function emitScores(){
-    io.emit("scores:update", {scores: scores})
+    io.emit("scores:update", {scores: scores});
 }
 
 function emitWord(){
-    io.emit("word:update", {word: maskedWord})
+    io.emit("word:update", {word: maskedWord});
 }
 
 io.on('connection', function (socket) {
-    socket.emit('game:init', {scores: scores, chats: chats, word: maskedWord})
+    socket.emit('game:init', {scores: scores, chats: chats, word: maskedWord});
 
     socket.on('player:start', function (data){
-        console.log('player joined', data.name)
+        console.log('player joined', data.name);
         const chat = {name: "System", content: `${data.name} joined the game.`, timestamp: Date.now()}
-        chats.push(chat)
-        emitNewChat(chat.name, chat.content, chat.timestamp)
+        chats.push(chat);
+        emitNewChat(chat.name, chat.content, chat.timestamp);
 
-        scores.push({name: data.name, score: 0})
+        scores.push({name: data.name, score: 0});
         emitScores();
-    })
+    });
 
     socket.on('chat:create', function(data) {
         const {name, content, timestamp} = data;
         const chat = {name, content, timestamp}
-        chats.push(chat)
+        chats.push(chat);
         emitNewChat(name, content, timestamp);
 
         if(String(content).toLowerCase().includes(currentWord.toLowerCase())){
-            console.log(content, currentWord)
-            correctGuess(name)
+            console.log(content, currentWord);
+            correctGuess(name);
         }
-    })
+    });
 });
