@@ -1,0 +1,47 @@
+body {
+    display: flex;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.sidebar {
+    width: 220px;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+}
+
+.sidebar input[type="text"] {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 15px;
+}
+
+.sidebar fieldset {
+    border: none;
+    margin-bottom: 15px;
+}
+
+.sidebar fieldset label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.results {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.player-card {
+    width: 150px;
+    text-align: center;
+}
+
+.player-image-placeholder {
+    width: 100px;
+    height: 100px;
+    background: #ddd;
+    margin: 0 auto 8px auto;
+}
