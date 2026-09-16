@@ -52,17 +52,26 @@ async function verifyRegistration(req, res, next) {
     // Verify login form 
     function verifyLogin(req, res, next) {
         const {email, password} = req.body;
+        
+        // Check required fields 
+        if (!email || !password) { 
+            return res.redirect("/?error=Please+enter+your+email+and+password"); 
+        } 
+        
+        // Check email format 
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { 
+            return res.redirect("/?error=Please+enter+a+valid+email"); 
+        } 
+        
+        next();
     }
 
-    // Check required fields 
-    if (!email || !password) { 
-        return res.redirect("/?error=Please+enter+your+email+and+password"); 
-    } 
-    
-    // Check email format 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { 
-        return res.redirect("/?error=Please+enter+a+valid+email"); 
-    } 
-    
-    next();
+    // Verify authentication by looking at session id
+    function verifyAuthentication(reg, res, next) {
+        if (!req.session.studentId) { 
+            return res.redirect("/"); 
+        } 
+        
+        next();
+    }
 }
