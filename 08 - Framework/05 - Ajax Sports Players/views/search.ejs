@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+        <title>Sports Player Lookup</title>
+    </head>
+    <body>
+        <div class="page">
+
+            <div class="filters">
+                <form id="search_form" method="GET" action="/search">
+
+                    <input type="hidden" name="submitted" value="1">
+
+                    <h2>Search Users</h2>
+                    <input type="text" name="name" placeholder="name" value="<%= query.name %>">
+
+                    <% genderList.forEach(function(gender) { %>
+                        <label>
+                            <input type="checkbox" name="gender" value="<%= gender %>" <%= query.genders.includes(gender) ? 'checked' : '' %>>
+                            <%= gender === 'F' ? 'Female' : 'Male' %>
+                        </label>
+                    <% }) %>
+
+                    <h2>Sports</h2>
+
+                    <% sportsList.forEach(function(sport) { %>
+                        <label>
+                            <input type="checkbox" name="sport" value="<%= sport %>" <%= query.sports.includes(sport) ? 'checked' : '' %>>
+                            <%= sport %>
+                        </label>
+                    <% }) %>
+
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+            <div class="results" id="results">
+                <%- include('./partials/playerCards', {players: players}) %>
+            </div>
+
+        </div>
+
+        <script src="search.js"></script>
+    </body>
+</html>

@@ -1,0 +1,70 @@
+*,
+*:before,
+*:after {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+body {
+    font-family: Verdana;
+    padding: 20px;
+}
+.page {
+    display: flex;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.filters {
+    width: 260px;
+    border: 2px solid black;
+    padding: 15px;
+}
+    .filters h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .filters input[type="text"] {
+        width: 100%;
+        padding: 6px;
+        margin-bottom: 20px;
+        border: 1px solid black;
+    }
+    .filters label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    .filters button {
+        margin-top: 20px;
+        padding: 8px 20px;
+        cursor: pointer;
+    }
+.results {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 15px;
+    border: 2px solid black;
+    padding: 15px;
+    min-height: 400px;
+}
+    .card {
+        width: 130px;
+        text-align: center;
+    }
+        .card img {
+            width: 120px;
+            height: 120px;
+            border: 2px solid black;
+            object-fit: cover;
+        }
+        .card .name {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        .card .sports {
+            font-size: 11px;
+            color: #555;
+        }
