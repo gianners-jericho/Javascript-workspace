@@ -23,8 +23,16 @@ class StudentsModel extends Model{
         return results;
     }
 
+    // For finding students by their id, useful for sessioning
+    async findById(id) {
+        const sql = `SELECT * FROM students WHERE id = ?`;
+
+        const results = await this.query(sql, [id]);
+
+        // Returns only one result because results gives back an array of rows
+        return results[0];
+    }
      
-    
 }
 
 module.exports = StudentsModel;
