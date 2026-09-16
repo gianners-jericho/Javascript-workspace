@@ -25,14 +25,25 @@ async function search(req, res) {
         sports = sportsList;
     }
 
-    const players = await playersModel.searchPlayers({ name, gender, sports });
-
-    res.render("search", {
-        players,
-        genderList,
-        sportsList,
-        query: { name, gender, sports }
-    });
+    try{
+        const players = await playersModel.searchPlayers({ name, gender, sports });
+    
+        // AJAX request
+        if (req.query.ajax) {
+            return res.render("partials/playerCards", { players });
+        }
+    
+        // Normal page request
+        return res.render("search", {
+            players,
+            genderList,
+            sportsList,
+            query: { name, gender, sports }
+        });
+    } catch (error) {
+        console.log(`Search failed: ${error}`);
+        res.status(500).send("Something went wrong");    
+    }
 }
 
 module.exports = { search };
