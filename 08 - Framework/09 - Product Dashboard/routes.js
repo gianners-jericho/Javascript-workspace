@@ -14,8 +14,8 @@ adminRouter.post('/product', () => {});
 adminRouter.patch('/product', () => {});
 
 router.use('/admin', adminRouter);
-
 router.use(requireLogin);
+
 // Products
 router.get('/products', productController.viewDashboard);
 router.get('/products/:id', productController.viewProductDetails);

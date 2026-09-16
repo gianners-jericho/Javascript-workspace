@@ -1,8 +1,8 @@
 const validate = require('../middlewares/validation.middlewares').validate;
 const registerSchema = require('../validators/users.validators').registerUserSchema;
-const { userModel, user } = require('../models/users.models')
+const { userModel, user } = require('../models/users.models');
 
-const cryptoUtils = require('../utils')
+const cryptoUtils = require('../utils');
 
 class UsersController {
     viewRegister(req, res) {
@@ -21,7 +21,7 @@ class UsersController {
         
         if (!result.valid) {
             console.log(result.errors);
-            return res.render('register', {errors: result.errors})
+            return res.render('register', {errors: result.errors});
         }
 
         const hash = cryptoUtils.hash_password(values.password);

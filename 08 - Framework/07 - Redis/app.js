@@ -14,13 +14,13 @@ const port = 3000;
 // Redis Init
 const redisClient = createClient({
   url: process.env.redis_string
-}) 
+}); 
 redisClient.connect().catch(console.error);
 
 const store = new RedisStore({
   client: redisClient,
   prefix: "redis07:"
-})
+});
   
 app.set('view engine', 'ejs');
 

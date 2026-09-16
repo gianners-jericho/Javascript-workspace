@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const express = require('express');
-const session = require('express-session');
 const path = require('node:path');
 const routes = require('./routes');
 
@@ -13,6 +12,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
 app.get('/home', function(req, res){
   res.render('home');
 })

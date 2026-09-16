@@ -17,7 +17,7 @@ function nestReviews(reviews){
         const current = reviewMap.get(review.review_id);
 
         if(review.parent_review_id == null){
-            roots.push(current)
+            roots.push(current);
         }
         else {
             const parent = reviewMap.get(review.parent_review_id);
@@ -34,17 +34,16 @@ class ProductsController {
     async viewDashboard(req, res) {
         const products = await productsModel.findAll();
 
-        let result = []
+        let result = [];
         for(let i = 0; i < products.length; i++){
-            const p = products[i]
-            result.push({product_id: p.product_id, quantity: p.quantity, name: p.name})
+            const p = products[i];
+            result.push({product_id: p.product_id, quantity: p.quantity, name: p.name});
         }
         res.render('products', {products: result});
     }
 
     async viewProductDetails(req, res) {
         const { id } = req.params;
-        console.log(req.session)
         const userId = req.session.user.user_id;
 
         const product = await productsModel.find(id);
@@ -62,8 +61,6 @@ class ProductsController {
 
         // check if ordered before
         const hasOrdered = (await ordersModel.hasOrdered(userId)).order_id ? true : false;
-
-        console.log("hasOrdered", hasOrdered);
 
         res.render('product-details', {product: product, hasOrdered: hasOrdered, averageRating: avg, reviews: nested});
     }

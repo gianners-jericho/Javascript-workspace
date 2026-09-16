@@ -26,7 +26,7 @@ class UsersController {
         const values = req.body;
         const existing = await userModel.findByEmail(values.email);
         if(existing) {
-            const check = cryptoUtils.verify_hash(existing.password_hash, values.password)
+            const check = cryptoUtils.verify_hash(existing.password_hash, values.password);
             if(check) {
                 req.session.user = {name: existing.name, email: existing.email};
                 return res.redirect('/dashboard');
@@ -34,7 +34,7 @@ class UsersController {
         }
 
         res.render('login', { error: "Incorrect credentials."});
-    }
+    };
 
     postLogoff(req, res) {
         req.session.user = null;

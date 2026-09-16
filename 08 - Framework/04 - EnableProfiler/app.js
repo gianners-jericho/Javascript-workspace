@@ -8,8 +8,6 @@ const profiler = require('./middlewares/profiler.middleware').profiler;
 
 const app = express();
 const port = 3000;
-  
-app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,7 +17,10 @@ app.use(session({
   secret: 'a strong secret',
 }));
 app.use(profiler);
+  
+app.set('view engine', 'ejs');
 
+// Routes
 app.get('/', function(req, res) {
   res.send('Hello World!');
 });

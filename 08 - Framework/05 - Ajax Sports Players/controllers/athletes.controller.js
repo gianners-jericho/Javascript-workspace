@@ -3,13 +3,11 @@ const athleteModel = require('../models/athletes.models');
 class AthletesController {
 
     // App Routes
-
     viewHome(req, res) {
         res.render('home', { errors: null });
     };
 
     // API Routes
-
     async GETAthletes(req, res){
         if(Object.keys(req.query).length > 0){
 

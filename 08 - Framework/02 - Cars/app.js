@@ -2,12 +2,12 @@ require('dotenv').config();
 
 const express = require('express');
 const session = require('express-session');
-const ejs = require('ejs')
-const routes = require('./routes')
+const ejs = require('ejs');
+const routes = require('./routes');
 
 const app = express();
 
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 
 app.use(session({
     resave: false,
@@ -15,9 +15,9 @@ app.use(session({
     secret: 'strong secret'
 }))
 
-app.use('/', routes)
-
+// Routes
 app.listen(3000, () => {
     console.log('Connected')
 })
 
+app.use('/', routes)

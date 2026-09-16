@@ -15,15 +15,6 @@ class UsersController {
 
     async postRegister(req, res) {
         const values = req.body;
-
-        // validate
-        const result = validate(registerSchema, values);
-        
-        if (!result.valid) {
-            console.log(result.errors);
-            return res.render('register', {errors: result.errors})
-        }
-
         const hash = cryptoUtils.hash_password(values.password);
 
         if(await userModel.create(values.name, values.email, hash)){

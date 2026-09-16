@@ -3,7 +3,8 @@
 function validate(schema, data) {
     const errors = {};
 
-    for (const field in schema) {
+    for(let i = 0; i < schema.length; i++){
+        const field = schema[i];
         const rules = schema[field];
         const value = data[field];
 
