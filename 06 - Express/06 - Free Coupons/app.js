@@ -7,17 +7,16 @@ const port = 3000;
 
 // Static Files
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
 app.use(session({
     saveUninitialized: true,
     resave: false,
     secret: 'strong'
-}))
+}));
 
-app.use(express.urlencoded({ extended: true }));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // Routes
 app.get('/', function(req, res){
@@ -67,10 +66,7 @@ app.post('/ticket', function(req, res){
 
     console.log(session);
 
-    res.render('ticket', {
-        name,
-        number
-    });
+    res.render('ticket', { name, number });
 });
 
 app.listen(port, function(){

@@ -7,20 +7,20 @@ const port = 3000;
 
 // Static Files
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     saveUninitialized: true,
     resave: false,
     secret: 'a strong secret'
-}))
+}));
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // Routes
 app.get('/', (req, res) => {
     const session = req.session;
-    const skip = session.skipIncrement
+    const skip = session.skipIncrement;
     
     if(session.skipIncrement){
         session.skipIncrement = false;

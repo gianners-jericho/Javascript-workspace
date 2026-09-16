@@ -1,5 +1,4 @@
 const express = require('express');
-const session = require('express-session');
 const path = require('node:path');
 
 const app = express();
@@ -7,11 +6,11 @@ const port = 3000;
 
 // Static Files
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // Routes
 app.get('/', (req, res) => {
