@@ -1,0 +1,11 @@
+<% if (players.length === 0) { %>
+    <p>No players found.</p>
+<% } else { %>
+    <% players.forEach(function(player) { %>
+        <div class="player-card">
+            <div class="player-image-placeholder"></div>
+            <p class="player-name"><%= player.name %></p>
+            <p class="player-sports"><%= player.sports %></p>
+        </div>
+    <% }) %>
+<% } %>
