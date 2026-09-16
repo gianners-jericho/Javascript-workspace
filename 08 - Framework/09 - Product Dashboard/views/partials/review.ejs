@@ -1,0 +1,22 @@
+<div class="review">
+  <div class="review-head">
+    <span class="review-author"><%= review.name %></span>
+    <span class="review-date">
+      <%= new Date(review.created_at).toLocaleDateString('en-PH') %>
+    </span>
+  </div>
+
+  <div class="stars">
+    <%= '★'.repeat(review.rating) %><%= '☆'.repeat(5 - review.rating) %>
+  </div>
+
+  <p><%= review.content %></p>
+
+  <% if (review.replies && review.replies.length > 0) { %>
+    <div class="review-replies">
+      <% review.replies.forEach(function(reply) { %>
+        <%- include('review', { review: reply }) %>
+      <% }); %>
+    </div>
+  <% } %>
+</div>

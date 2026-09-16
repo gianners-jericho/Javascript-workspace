@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <%- include('partials/user-nav') %>
+
+  <main class="page">
+    <div class="page-header">
+      <div>
+        <h1>Products</h1>
+        <p class="text-muted">Browse everything currently in stock.</p>
+      </div>
+    </div>
+
+    <% if (typeof products !== 'undefined' && products.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Availability</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(function(product) { %>
+            <tr>
+              <td><%= product.name %></td>
+              <td>
+                <% if (product.quantity > 0) { %>
+                  <span class="badge">In stock</span>
+                <% } else { %>
+                  <span class="badge low">Out of stock</span>
+                <% } %>
+              </td>
+              <td>
+                <a href="/products/<%= product.product_id %>" class="btn btn-secondary btn-sm">View details</a>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="card empty-state">
+        <p>No products are available right now.</p>
+      </div>
+    <% } %>
+  </main>
+
+</body>
+</html>

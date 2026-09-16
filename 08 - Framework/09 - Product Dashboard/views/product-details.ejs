@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= product.name %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <%- include('partials/user-nav') %>
+
+  <main class="page">
+    <p><a href="/products">&larr; Back to products</a></p>
+
+    <div class="details-layout">
+      <div class="card">
+        <h1><%= product.name %></h1>
+
+        <div class="details-meta">
+          <div>
+            <span>Availability</span>
+            <% if (product.quantity > 0) { %>
+              <span class="badge">In stock (<%= product.quantity %>)</span>
+            <% } else { %>
+              <span class="badge low">Out of stock</span>
+            <% } %>
+          </div>
+          <div>
+            <span>Average rating</span>
+            <span class="stars">
+              <% var avgRating = typeof averageRating !== 'undefined' ? averageRating : 0; %>
+              <%= '★'.repeat(Math.round(avgRating)) %><%= '☆'.repeat(5 - Math.round(avgRating)) %>
+            </span>
+          </div>
+        </div>
+
+        <h3>Description</h3>
+        <p><%= product.description %></p>
+      </div>
+
+      <div class="card">
+        <h2>Reviews</h2>
+        <% if (typeof reviews !== 'undefined' && reviews.length > 0) { %>
+          <% reviews.forEach(function(review) { %>
+            <%- include('partials/review', { review: review }) %>
+          <% }); %>
+        <% } else { %>
+          <p class="text-muted">No reviews yet for this product.</p>
+        <% } %>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
