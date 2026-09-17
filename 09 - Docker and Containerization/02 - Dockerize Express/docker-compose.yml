@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mysql:5.7
+    container_name: money_button_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: hh
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql-dump/db.sql:/docker-entrypoint-initdb.d/db.sql:ro
+      - db_data:/var/lib/mysql
+    networks:
+      - app_network
+  
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: money_button_web
+    restart: always
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge
