@@ -1,0 +1,92 @@
+<%- include('partials/header') %>
+
+<section class="content-box">
+  <h3>Developer Information Survey</h3>
+  <p class="description">Complete the fields below to record your response.</p>
+
+  <% if (errors && errors.length > 0) { %>
+    <div class="errors">
+      <p><strong>Please correct the following:</strong></p>
+      <ul>
+        <% errors.forEach(function(error) { %>
+          <li><%= error %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form action="/submit" method="POST">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="firstName">First Name *</label>
+        <input 
+          type="text" 
+          id="firstName" 
+          name="firstName" 
+          value="<%= formData.firstName || '' %>" 
+          placeholder="e.g. Alfredo"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name *</label>
+        <input 
+          type="text" 
+          id="lastName" 
+          name="lastName" 
+          value="<%= formData.lastName || '' %>" 
+          placeholder="e.g. Venturina"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location *</label>
+        <input 
+          type="text" 
+          id="location" 
+          name="location" 
+          value="<%= formData.location || '' %>" 
+          placeholder="e.g. Metro Manila, PH"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="favoriteLanguage">Favorite Language *</label>
+        <select id="favoriteLanguage" name="favoriteLanguage" required>
+          <option value="">-- Select a Language --</option>
+          <% const languages = ['JavaScript', 'TypeScript', 'Python', 'Go', 'Rust', 'PHP', 'Java', 'C#', 'Ruby']; %>
+          <% languages.forEach(function(lang) { %>
+            <option 
+              value="<%= lang %>" 
+              <%= (formData.favoriteLanguage === lang) ? 'selected' : '' %>
+            >
+              <%= lang %>
+            </option>
+          <% }); %>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="comment">Comment (Optional)</label>
+      <textarea 
+        id="comment" 
+        name="comment" 
+        rows="3" 
+        placeholder="Any comments or feedback..."
+      ><%= formData.comment || '' %></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">Submit Survey</button>
+      <a href="/results">View Submissions</a>
+    </div>
+  </form>
+</section>
+
+  </main>
+</body>
+</html>

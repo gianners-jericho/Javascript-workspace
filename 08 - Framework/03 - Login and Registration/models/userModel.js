@@ -1,4 +1,5 @@
 import pool from '../config.js';
+import bcrypt from 'bcrypt';
 
 export class UserModel {
     static async findAll(){
@@ -6,10 +7,8 @@ export class UserModel {
             SELECT 
                 id, 
                 first_name, 
-                last_name, 
-                location, 
-                favorite_language, 
-                comment, 
+                last_name,
+                email,
                 created_at 
             FROM users 
             ORDER BY created_at DESC;
@@ -25,9 +24,8 @@ export class UserModel {
                 id, 
                 first_name, 
                 last_name, 
-                location, 
-                favorite_language, 
-                comment, 
+                email,
+                hashed_password,
                 created_at 
             FROM users 
             WHERE id = ?;
@@ -37,19 +35,38 @@ export class UserModel {
         return rows.length > 0 ? rows[0] : null;
     }
 
-    //object destructure args so order doesn't matter (better than regular positional args)
-    static async create({firstName, lastName, location, favoriteLanguage, comment}){
+    static async findByEmail(email){
         const query = `
-            INSERT INTO users (first_name, last_name, location, favorite_language, comment)
-            VALUES (?, ?, ?, ?, ?)
+            SELECT
+                id,
+                first_name,
+                last_name,
+                email,
+                hashed_password,
+                created_at
+            FROM users
+            WHERE email = ?;
+        `
+
+        const [rows] = await pool.execute(query, [email]);
+        return rows.length > 0? rows[0] : null;
+    }
+
+    //object destructure args so order doesn't matter (better than regular positional args)
+    static async create({firstName, lastName, email, password}){
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const query = `
+            INSERT INTO users (first_name, last_name, email, hashed_password)
+            VALUES (?, ?, ?, ?)
         `;
 
         const values = [
             firstName.trim(),
             lastName.trim(),
-            location.trim(),
-            favoriteLanguage.trim(),
-            comment ? comment.trim() : null,
+            email.trim(),
+            hashedPassword,
         ];
 
         const [result] = await pool.execute(query, values);

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cars</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Cars Directory</h1>
+      <p class="session-badge">Session Page Views: <strong><%= views %></strong></p>
+    </header>
+
+    <main>
+      <% if (cars && cars.length > 0) { %>
+        <table class="car-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Car Name</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cars.forEach(function(car) { %>
+              <tr>
+                <td><%= car.id %></td>
+                <td><%= car.name %></td>
+                <td><%= car.year %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p class="empty-msg">No car records found in database.</p>
+      <% } %>
+    </main>
+  </div>
+</body>
+</html>

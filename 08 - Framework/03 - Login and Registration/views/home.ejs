@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Profile</h1>
+
+        <% if (user) { %>
+            <p><strong>Welcome, <%= user.firstName || user.first_name %>!</strong></p>
+            <div class="profile-info">
+                <p><strong>First Name:</strong> <%= user.firstName || user.first_name %></p>
+                <p><strong>Last Name:</strong> <%= user.lastName || user.last_name %></p>
+                <p><strong>Email:</strong> <%= user.email %></p>
+            </div>
+        <% } %>
+
+        <form action="/logout" method="POST">
+            <button type="submit">Log Out</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding: 24px 16px;
+  background-color: #fff;
+  color: #111;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 950px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 12px;
+}
+
+.header h1 {
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.session-badge {
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+}
+
+.alert {
+  border: 1px solid #111;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.test-panel {
+  border: 1px solid #ccc;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+}
+
+.test-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid #333;
+  color: #111;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.btn-link:hover {
+  background-color: #eee;
+}
+
+.form-section {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.form-section h3 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.form-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.form-group input:focus {
+  outline: 2px solid #333;
+}
+
+.btn-submit {
+  padding: 8px 16px;
+  background-color: #fff;
+  color: #111;
+  border: 1px solid #333;
+  border-radius: 2px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-color: #eee;
+}
+
+main h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.car-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.car-table th,
+.car-table td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.car-table th {
+  background-color: #f7f7f7;
+  font-weight: 600;
+}
+
+.empty-msg {
+  padding: 16px 0;
+}

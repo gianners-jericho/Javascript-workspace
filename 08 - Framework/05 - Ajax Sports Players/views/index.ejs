@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Players - Ajax Search</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <h1>Sports Players Directory</h1>
+            <p class="subtitle">Search and filter sports players with real-time Ajax</p>
+        </header>
+
+        <!-- search and filter form -->
+        <form id="filter-form" class="filter-card">
+            <!-- name search input -->
+            <div class="form-group">
+                <label for="search-name">Search Player Name:</label>
+                <input 
+                    type="text" 
+                    id="search-name" 
+                    name="name" 
+                    placeholder="Type a name to search (e.g., LeBron, Alex, Messi)..." 
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="filter-row">
+                <!-- gender filter checkboxes -->
+                <div class="filter-group">
+                    <span class="filter-label">Gender:</span>
+                    <div class="checkbox-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="gender" value="male"> Male
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="gender" value="female"> Female
+                        </label>
+                    </div>
+                </div>
+
+                <!-- sports filter checkboxes -->
+                <div class="filter-group">
+                    <span class="filter-label">Sports:</span>
+                    <div class="checkbox-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="sport" value="basketball"> Basketball
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="sport" value="volleyball"> Volleyball
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="sport" value="soccer"> Soccer
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="sport" value="football"> Football
+                        </label>
+                    </div>
+                </div>
+
+                <!-- reset button -->
+                <div class="filter-actions">
+                    <button type="button" id="reset-btn" class="btn-reset">Reset Filters</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- results display section -->
+        <section class="results-section">
+            <div class="results-header">
+                <h2>Players List</h2>
+                <span id="player-count" class="count-badge">Showing <%= players ? players.length : 0 %> players</span>
+            </div>
+
+            <!-- players table -->
+            <div class="table-wrapper">
+                <table class="players-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">ID</th>
+                            <th>Name</th>
+                            <th style="width: 140px;">Gender</th>
+                            <th style="width: 160px;">Sport</th>
+                        </tr>
+                    </thead>
+                    <tbody id="players-tbody">
+                        <% if (players && players.length > 0) { %>
+                            <% players.forEach(function(player) { %>
+                                <tr>
+                                    <td><%= player.id %></td>
+                                    <td class="player-name"><%= player.name %></td>
+                                    <td><%= player.gender.charAt(0).toUpperCase() + player.gender.slice(1) %></td>
+                                    <td><%= player.sport.charAt(0).toUpperCase() + player.sport.slice(1) %></td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="4" class="no-records">No players found matching your criteria.</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- client side ajax script -->
+    <script src="/js/app.js"></script>
+</body>
+</html>

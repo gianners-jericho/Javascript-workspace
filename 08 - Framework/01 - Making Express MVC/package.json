@@ -1,12 +1,18 @@
-{	
-	"name": "mvc-framework",
-	"scripts":{
-		"dev":"nodemon app.js"
-	},
-	"dependencies": {
-		"ejs": "^6.0.1",
-		"express": "^5.2.1",
-		"mysql2": "^3.24.3",
-		"nodemon": "^3.1.14"
-	}
+{
+  "name": "mvc-framework",
+  "version": "1.0.0",
+  "description": "Express MVC application with EJS and MySQL2 (ESM)",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0",
+    "nodemon": "^3.1.4"
+  }
 }

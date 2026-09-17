@@ -1,0 +1,176 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  color: #111;
+  background-color: #fff;
+}
+
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* header */
+header {
+  border-bottom: 1px solid #ccc;
+  padding: 12px 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content nav a {
+  margin-left: 16px;
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* main layout */
+main {
+  padding: 24px 0;
+}
+
+.content-box {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.header-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 14px;
+  margin: 4px 0 16px 0;
+}
+
+/* error box */
+.errors {
+  border: 1px solid #333;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+.errors ul {
+  margin-left: 20px;
+  margin-top: 4px;
+}
+
+/* form layout */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 550px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 14px;
+  background: #fff;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #333;
+}
+
+/* actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+button,
+.header-action a,
+.form-actions a,
+.empty-message a {
+  display: inline-block;
+  padding: 7px 14px;
+  font-size: 14px;
+  border: 1px solid #333;
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+button:hover,
+.header-action a:hover,
+.form-actions a:hover,
+.empty-message a:hover {
+  background: #eee;
+}
+
+/* table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+th {
+  font-weight: 600;
+  background: #f7f7f7;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 32px 10px;
+}
+
+.empty-message p {
+  margin-bottom: 12px;
+}

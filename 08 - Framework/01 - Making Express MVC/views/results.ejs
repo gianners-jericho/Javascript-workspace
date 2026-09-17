@@ -1,0 +1,49 @@
+<%- include('partials/header') %>
+
+<section class="content-box">
+  <div class="header-action">
+    <div>
+      <h3>Survey Submissions</h3>
+      <p class="description">Records stored in the database.</p>
+    </div>
+    <a href="/">+ Add New</a>
+  </div>
+
+  <% if (submissions && submissions.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Language</th>
+          <th>Comment</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% submissions.forEach(function(item) { %>
+          <tr>
+            <td>#<%= item.id %></td>
+            <td><%= item.first_name %> <%= item.last_name %></td>
+            <td><%= item.location %></td>
+            <td><%= item.favorite_language %></td>
+            <td><%= item.comment || '—' %></td>
+            <td>
+              <%= new Date(item.created_at).toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'short' }) %>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <div class="empty-message">
+      <p>No survey responses recorded yet.</p>
+      <a href="/">Submit the first response</a>
+    </div>
+  <% } %>
+</section>
+
+  </main>
+</body>
+</html>

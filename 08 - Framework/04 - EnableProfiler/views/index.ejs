@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cars Directory - MVC with Profiler</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1>Cars Directory</h1>
+        <p class="subtitle">Express MVC Pattern with CodeIgniter-style Profiler</p>
+      </div>
+      <div class="header-right">
+        <p class="session-badge">Session Views: <strong><%= views %></strong></p>
+      </div>
+    </header>
+
+    <% if (typeof message !== 'undefined' && message) { %>
+      <div class="alert"><%= message %></div>
+    <% } %>
+
+    <!-- test controls for profiler inspection -->
+    <section class="test-panel">
+      <strong>Profiler Testing Controls:</strong>
+      <div class="test-links">
+        <a href="/" class="btn-link">Default View</a>
+        <a href="/?search=Toyota&filter=recent&debug=1" class="btn-link">Test GET Query Variables</a>
+        <a href="/?profiler=0" class="btn-link btn-secondary">Disable Profiler (?profiler=0)</a>
+      </div>
+    </section>
+
+    <!-- form to test post data and db insert in profiler -->
+    <section class="form-section">
+      <h3>Add New Car (Tests POST Data &amp; DB INSERT)</h3>
+      <form action="/cars" method="POST" class="add-car-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="car-name">Car Name:</label>
+            <input type="text" id="car-name" name="name" placeholder="e.g. Honda Civic" required>
+          </div>
+          <div class="form-group">
+            <label for="car-year">Year:</label>
+            <input type="number" id="car-year" name="year" placeholder="e.g. 2020" min="1900" max="2100" required>
+          </div>
+          <button type="submit" class="btn-submit">Add Car</button>
+        </div>
+      </form>
+    </section>
+
+    <main>
+      <h3>Current Cars in Database</h3>
+      <% if (cars && cars.length > 0) { %>
+        <table class="car-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Car Name</th>
+              <th>Year</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cars.forEach(function(car) { %>
+              <tr>
+                <td><%= car.id %></td>
+                <td><%= car.name %></td>
+                <td><%= car.year %></td>
+                <td><%= car.created_at ? new Date(car.created_at).toLocaleString() : 'N/A' %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p class="empty-msg">No car records found in database.</p>
+      <% } %>
+    </main>
+  </div>
+</body>
+</html>
