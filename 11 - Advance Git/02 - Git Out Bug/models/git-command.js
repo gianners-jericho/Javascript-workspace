@@ -14,7 +14,6 @@ class GitCommand {
     /*
             Create logic here and run unit testing.
         */
-
     let files = Object.keys(this.working_directory.new_changes);
 
     let output = "You have " + files.length + " change/s.\n";
