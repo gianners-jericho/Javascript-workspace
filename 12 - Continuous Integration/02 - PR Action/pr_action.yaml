@@ -1,0 +1,57 @@
+name: Github PR Action
+on: 
+  pull_request:
+    types: ["opened"]
+    branches:
+      - main
+jobs:   
+  # Test Runs
+  test_pr:
+    name: Build and Test Codebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      
+      - name: Get Node
+        uses: actions/setup-node@v7.0.0
+
+      - name: Install deps
+        run: npm install
+      
+      - name: Run tests
+        run: npm test
+
+  # PR Update
+  update_pr: 
+    name: Update PR Description with Test Status
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    needs: test_pr
+    if: always()
+    steps:
+      - name: Updated PR Description
+        uses: actions/github-script@v9.0.0
+        with: 
+          script: |
+            const status = `${{ needs.test_pr.result }}`
+            let body = "";
+            if(status == "success"){
+              body = "All tests passed."
+            }
+            else if(status == "failure"){
+              body = "One or more tests failed."
+            }
+            else {
+              body = "An error occurred."
+            }
+
+            body += `\nRun ID: ${{ github.run_id }}`
+
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              body: body
+            });
