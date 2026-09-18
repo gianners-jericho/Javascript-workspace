@@ -1,0 +1,21 @@
+name: Github Push Action
+on: 
+  push:
+    branch:
+      - feature/*
+jobs:   
+  build:
+    name: Build App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      
+      - name: Get Node
+        uses: actions/setup-node@v7.0.0
+
+      - name: Install deps
+        run: npm install
+      
+      - name: Run tests
+        run: npm test
