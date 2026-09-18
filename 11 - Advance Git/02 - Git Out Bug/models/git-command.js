@@ -1,58 +1,63 @@
 class GitCommand {
-    constructor(working_directory){
-        this.working_directory = working_directory;
-    }
-    //Command: git init 
-    init(){
-        this.staging = [];
-        this.local_repository = [];
-        return "Initialized as empty Git repository.";
-    }
+  constructor(working_directory) {
+    this.working_directory = working_directory;
+  }
+  //Command: git init
+  init() {
+    this.staging = [];
+    this.local_repository = [];
+    return "Initialized as empty Git repository.";
+  }
 
-    //Command: git status
-    status(){        
-        /*
+  //Command: git status
+  status() {
+    /*
             Create logic here and run unit testing.
         */
-       let output = "You have " + Object.keys(this.working_directory.new_changes).length + " change/s.\n";
 
-       for (let path_file in this.working_directory.new_changes) {
-        output += path_file + "\n";
-       }
+    let files = Object.keys(this.working_directory.new_changes);
 
-       return output;
+    let output = "You have " + files.length + " change/s.\n";
+
+    for (let i = 0; i < files.length; i++) {
+      output += files[i];
+
+      if (i < files.length - 1){
+        output += "\n";
+      }
     }
 
-    //Command: git add <filename/file directory/wildcard> 
-    add(path_file){
-        let modified_files = this.working_directory.new_changes;
-        
-        if(modified_files[path_file]){
-            this.staging.push(modified_files[path_file]);
-            delete modified_files[path_file];
-        }
-    }
+    return output;
+  }
 
-    //Command: git commit -m "<message>"
-    commit(message){
-        if(this.staging.length > 0){
-            this.local_repository.push({ "message": message, "files": this.staging });
-            this.staging = [];
-            return "Done committing to local repository.";
-        }
-        return "Nothing to commit.";
-    }
+  //Command: git add <filename/file directory/wildcard>
+  add(path_file) {
+    let modified_files = this.working_directory.new_changes;
 
-    //Command: git push
-    push(){   
-        if(this.local_repository.length > 0){
-            return "Done pushing to remote repository.";
-        } 
-        else {
-            return "Nothing to push. No committed file found.";
-        }     
+    if (modified_files[path_file]) {
+      this.staging.push(modified_files[path_file]);
+      delete modified_files[path_file];
     }
+  }
+
+  //Command: git commit -m "<message>"
+  commit(message) {
+    if (this.staging.length > 0) {
+      this.local_repository.push({ message: message, files: this.staging });
+      this.staging = [];
+      return "Done committing to local repository.";
+    }
+    return "Nothing to commit.";
+  }
+
+  //Command: git push
+  push() {
+    if (this.local_repository.length > 0) {
+      return "Done pushing to remote repository.";
+    } else {
+      return "Nothing to push. No committed file found.";
+    }
+  }
 }
-
 
 module.exports = GitCommand;
