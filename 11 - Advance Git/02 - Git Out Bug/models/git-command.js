@@ -14,6 +14,13 @@ class GitCommand {
         /*
             Create logic here and run unit testing.
         */
+       let output = "You have " + Object.keys(this.working_directory.new_changes).length + " change/s.\n";
+
+       for (let path_file in this.working_directory.new_changes) {
+        output += path_file + "\n";
+       }
+
+       return output;
     }
 
     //Command: git add <filename/file directory/wildcard> 
